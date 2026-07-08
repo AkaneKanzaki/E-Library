@@ -1,20 +1,20 @@
 # E-Library Mobile App
 
-Aplikasi mobile Perpustakaan Digital (E-Library) *offline-first* yang dibangun menggunakan framework **Flutter** dan **SQLite**. Aplikasi ini dirancang untuk menyediakan ekosistem manajemen perpustakaan yang komprehensif mulai dari peminjaman buku, membaca buku format PDF, hingga pengelolaan denda otomatis berdasarkan sistem *Role-Based Access Control* (RBAC).
+An offline-first Digital Library mobile application built using the **Flutter** framework and **SQLite**. This application is designed to provide a comprehensive library management ecosystem ranging from borrowing books, reading PDF books, to automated fine management based on a Role-Based Access Control (RBAC) system.
 
-## Fitur Utama
+## Key Features
 
-- **Role-Based Authentication**: Mendukung 3 jenis hak akses:
-  - **Administrator**: Memiliki kendali penuh terhadap sistem, termasuk menambah/menghapus data Pustakawan dan Siswa.
-  - **Pustakawan**: Mengelola katalog buku (CRUD) dan memantau seluruh riwayat peminjaman buku.
-  - **Siswa**: Dapat mencari buku, meminjam buku, membaca buku, dan melihat riwayat denda.
-- **Integrated PDF Reader**: Membaca file buku PDF langsung di dalam aplikasi. Dilengkapi dengan memori *bookmark* otomatis, sehingga pengguna bisa melanjutkan bacaan dari halaman terakhir yang dibuka.
-- **Sistem Denda Otomatis**: Secara cerdas menghitung durasi peminjaman dan keterlambatan, serta mengakumulasi denda secara otomatis jika batas waktu pengembalian dilewati.
-- **Debounced Search**: Fitur pencarian buku yang sangat optimal (*debounce 500ms*) untuk menghindari efek *lag* pada perangkat saat mengetik judul buku dengan cepat.
-- **Dark Mode Support**: Tema Gelap yang terintegrasi penuh dan preferensinya disimpan di memori perangkat.
-- **Offline-First (SQLite)**: Seluruh data pengguna, buku, dan riwayat peminjaman disimpan secara lokal di dalam *device* tanpa membutuhkan koneksi internet.
+- **Role-Based Authentication**: Supports 3 access levels:
+  - **Administrator**: Has full control over the system, including adding or removing Librarians and Students.
+  - **Librarian (Pustakawan)**: Manages the book catalog (CRUD) and monitors the entire book borrowing history.
+  - **Student (Siswa)**: Can search for books, borrow books, read books, and view their fine history.
+- **Integrated PDF Reader**: Read PDF book files directly within the application. Equipped with an automatic bookmark memory, allowing users to resume reading from the last opened page.
+- **Automated Fine System**: Intelligently calculates the borrowing duration and delays, automatically accumulating fines if the return deadline is exceeded.
+- **Debounced Search**: A highly optimized book search feature (500ms debounce) to prevent UI lag on devices when typing book titles rapidly.
+- **Dark Mode Support**: Fully integrated Dark Mode with preferences stored in the device memory.
+- **Offline-First (SQLite)**: All user data, books, and borrowing histories are stored locally on the device without requiring an internet connection.
 
-## Teknologi yang Digunakan
+## Technologies Used
 
 - [Flutter](https://flutter.dev/) (SDK)
 - [Dart](https://dart.dev/) (Language)
@@ -23,42 +23,42 @@ Aplikasi mobile Perpustakaan Digital (E-Library) *offline-first* yang dibangun m
 - [shared_preferences](https://pub.dev/packages/shared_preferences) (Persistent Storage)
 - [flutter_pdfview](https://pub.dev/packages/flutter_pdfview) (PDF Viewer)
 
-## Cara Menjalankan Aplikasi Lokal
+## How to Run Locally
 
-1. **Prasyarat**: Pastikan Anda sudah menginstal Flutter SDK (versi terbaru direkomendasikan).
-2. **Kloning Repositori**:
+1. **Prerequisites**: Ensure that you have installed the Flutter SDK (latest version recommended).
+2. **Clone the Repository**:
    ```bash
    git clone https://github.com/AkaneKanzaki/E-Library.git
    cd E-Library
    ```
-3. **Unduh Dependencies**:
+3. **Install Dependencies**:
    ```bash
    flutter pub get
    ```
-4. **Jalankan Aplikasi**:
-   Pastikan emulator atau *device* fisik Anda (dengan mode *USB Debugging*) sudah tersambung.
+4. **Run the Application**:
+   Ensure your emulator is running or your physical device is connected (with USB Debugging enabled).
    ```bash
    flutter run
    ```
 
-## Akun Default (Dummy)
+## Default Accounts (Dummy Data)
 
-Aplikasi ini menggunakan sistem SQLite lokal dan sudah dibekali beberapa akun bawaan untuk keperluan *testing* dan demonstrasi:
+This application uses a local SQLite system and comes pre-populated with several built-in accounts for testing and demonstration purposes:
 
 - **Administrator**
   - Email: `admin@library.com`
   - Password: `admin123`
-- **Pustakawan**
+- **Librarian (Pustakawan)**
   - Email: `pustakawan@library.com`
   - Password: `pustakawan123`
 
-Untuk *Siswa*, Anda dapat mendaftarkan akun baru secara langsung melalui tombol **Registrasi** pada halaman awal aplikasi.
+For the **Student** role, you can register a new account directly through the **Registrasi** (Register) button on the initial application page.
 
-## Screenshots (Tampilan Aplikasi)
+## Screenshots
 
-*(Anda dapat menambahkan screenshot/GIF aplikasi Anda di sini dengan format)*
-`![Login Screen](link-gambar)` | `![Dashboard](link-gambar)` | `![PDF Reader](link-gambar)`
+*(You can add your application screenshots or GIFs here using the following format)*
+`![Login Screen](image-link)` | `![Dashboard](image-link)` | `![PDF Reader](image-link)`
 
 ---
 
-Dibuat menggunakan Flutter.
+Built using Flutter.
