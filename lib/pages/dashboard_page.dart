@@ -132,7 +132,8 @@ class DashboardPage extends StatelessWidget {
                     onTap: () {
                       // TODO: Buat halaman Manajemen Buku di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Manajemen Buku: Coming Soon')),
+                        const SnackBar(
+                            content: Text('Manajemen Buku: Coming Soon')),
                       );
                     },
                   ),
@@ -144,7 +145,8 @@ class DashboardPage extends StatelessWidget {
                     onTap: () {
                       // TODO: Buat halaman Daftar Anggota di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Daftar Anggota: Coming Soon')),
+                        const SnackBar(
+                            content: Text('Daftar Anggota: Coming Soon')),
                       );
                     },
                   ),
@@ -156,7 +158,8 @@ class DashboardPage extends StatelessWidget {
                     onTap: () {
                       // TODO: Buat halaman Approval di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Approval Peminjaman: Coming Soon')),
+                        const SnackBar(
+                            content: Text('Approval Peminjaman: Coming Soon')),
                       );
                     },
                   ),
@@ -180,7 +183,11 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAdminMenuCard(BuildContext context, {required String title, required IconData icon, required Color color, required VoidCallback onTap}) {
+  Widget _buildAdminMenuCard(BuildContext context,
+      {required String title,
+      required IconData icon,
+      required Color color,
+      required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -190,7 +197,7 @@ class DashboardPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -202,7 +209,7 @@ class DashboardPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, size: 32, color: color),
@@ -267,8 +274,10 @@ class DashboardPage extends StatelessWidget {
       ),
       body: Consumer<PeminjamanProvider>(
         builder: (context, peminjamanProvider, child) {
-          final jumlahDipinjam = peminjamanProvider.getJumlahBukuDipinjam(user.email);
-          final jumlahRiwayat = peminjamanProvider.getJumlahRiwayatPeminjaman(user.email);
+          final jumlahDipinjam =
+              peminjamanProvider.getJumlahBukuDipinjam(user.email);
+          final jumlahRiwayat =
+              peminjamanProvider.getJumlahRiwayatPeminjaman(user.email);
 
           return SingleChildScrollView(
             child: Column(
@@ -310,7 +319,9 @@ class DashboardPage extends StatelessWidget {
                               child: InkWell(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const PinjamBukuPage()),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PinjamBukuPage()),
                                 ),
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
@@ -319,7 +330,8 @@ class DashboardPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color:
+                                            Colors.black.withValues(alpha: 0.1),
                                         blurRadius: 10,
                                         offset: const Offset(0, 5),
                                       ),
@@ -339,7 +351,9 @@ class DashboardPage extends StatelessWidget {
                               child: InkWell(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const RiwayatPage()),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RiwayatPage()),
                                 ),
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
@@ -348,7 +362,8 @@ class DashboardPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color:
+                                            Colors.black.withValues(alpha: 0.1),
                                         blurRadius: 10,
                                         offset: const Offset(0, 5),
                                       ),
@@ -386,84 +401,94 @@ class DashboardPage extends StatelessWidget {
                   builder: (context, bookProvider, child) {
                     final books = bookProvider.books;
                     return FlutterCarousel(
-                      items: books.map((book) => GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BookDetailPage(book: book),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 8,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: Image.asset(
-                                    book.coverUrl,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
+                      items: books
+                          .map((book) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BookDetailPage(book: book),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            Colors.black.withValues(alpha: 0.2),
+                                        spreadRadius: 1,
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    color: Colors.white,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          book.judul,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          flex: 4,
+                                          child: Image.asset(
+                                            book.coverUrl,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
                                           ),
                                         ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          book.penulis,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade600,
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(8),
+                                            color: Colors.white,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  book.judul,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 4),
+                                                Text(
+                                                  book.penulis,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.grey.shade600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )).toList(),
+                              ))
+                          .toList(),
                       options: CarouselOptions(
                         height: 320,
                         viewportFraction: 0.6,
                         enlargeCenterPage: true,
                         autoPlay: true,
                         autoPlayInterval: const Duration(seconds: 3),
-                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                       ),
                     );
@@ -488,7 +513,7 @@ class DashboardPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, size: 30, color: color),

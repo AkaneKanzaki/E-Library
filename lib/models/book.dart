@@ -24,4 +24,36 @@ class Book {
     required this.bookPath,
     required this.jumlahHalaman,
   });
-} 
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'judul': judul,
+      'penulis': penulis,
+      'penerbit': penerbit,
+      'tahunTerbit': tahunTerbit,
+      'deskripsi': deskripsi,
+      'coverUrl': coverUrl,
+      'tersedia': tersedia ? 1 : 0,
+      'kategori': kategori,
+      'bookPath': bookPath,
+      'jumlahHalaman': jumlahHalaman,
+    };
+  }
+
+  factory Book.fromMap(Map<String, dynamic> map) {
+    return Book(
+      id: map['id'] ?? '',
+      judul: map['judul'] ?? '',
+      penulis: map['penulis'] ?? '',
+      penerbit: map['penerbit'] ?? '',
+      tahunTerbit: map['tahunTerbit'] ?? '',
+      deskripsi: map['deskripsi'] ?? '',
+      coverUrl: map['coverUrl'] ?? '',
+      tersedia: map['tersedia'] == 1,
+      kategori: map['kategori'] ?? '',
+      bookPath: map['bookPath'] ?? '',
+      jumlahHalaman: map['jumlahHalaman'] ?? 0,
+    );
+  }
+}
