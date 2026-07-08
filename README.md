@@ -56,15 +56,24 @@ For the **Student** role, you can register a new account directly through the **
 
 ## Screenshots
 
-*(You can add your application screenshots or GIFs here using the following format)*
-`![Login Screen](image-link)` | `![Dashboard](image-link)` | `![PDF Reader](image-link)`
+Here are the application interfaces based on your screenshots:
+
+<p align="center">
+  <img src="screenshots/dashboard.jpg" width="30%" alt="Dashboard" />
+  <img src="screenshots/history.jpg" width="30%" alt="Riwayat Peminjaman" />
+  <img src="screenshots/profile.jpg" width="30%" alt="Profil" />
+</p>
+<p align="center">
+  <img src="screenshots/borrowed.jpg" width="30%" alt="Buku Dipinjam" />
+  <img src="screenshots/about.jpg" width="30%" alt="Tentang Aplikasi" />
+</p>
 
 ---
 
 ## Contributing
 
-Contributions are always welcome! If you would like to contribute, please fork the repository and submit a pull request.
+Contributions are always welcome! If you would like to contribute, please fork the repository and submit a pull request. Read more in our [Contributing Guidelines](CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
