@@ -8,8 +8,8 @@ An offline-first Digital Library mobile application built using the **Flutter** 
 
 - **Role-Based Authentication**: Supports 3 access levels:
   - **Administrator**: Has full control over the system, including adding or removing Librarians and Students.
-  - **Librarian (Pustakawan)**: Manages the book catalog (CRUD) and monitors the entire book borrowing history.
-  - **Student (Siswa)**: Can search for books, borrow books, read books, and view their fine history.
+  - **Librarian**: Manages the book catalog (CRUD) and monitors the entire book borrowing history.
+  - **Student**: Can search for books, borrow books, read books, and view their fine history.
 - **Integrated PDF Reader**: Read PDF book files directly within the application. Equipped with an automatic bookmark memory, allowing users to resume reading from the last opened page.
 - **Automated Fine System**: Intelligently calculates the borrowing duration and delays, automatically accumulating fines if the return deadline is exceeded.
 - **Modern Immersive UI & Dark Mode**: Built with Material 3 design principles, featuring an immersive fullscreen layout by default and fully integrated Dark Mode.
@@ -33,7 +33,7 @@ An offline-first Digital Library mobile application built using the **Flutter** 
 
 ### Architecture Highlights
 - **Role-Based Routing**: The application dynamically determines the entry point and dashboard interface based on the authenticated user's role (Administrator, Librarian, Student).
-- **Service-Oriented Providers**: Business logic is separated from UI using the Provider pattern (e.g., `AuthProvider`, `BookProvider`, `PeminjamanProvider`), ensuring clean, maintainable, and testable code.
+- **Service-Oriented Providers**: Business logic is separated from UI using the Provider pattern (e.g., `AuthProvider`, `BookProvider`, `BorrowingProvider`), ensuring clean, maintainable, and testable code.
 - **Offline-First Strategy**: All crucial transactions (borrowing, returning, fine accumulation) are executed against the local SQLite database synchronously, making the app 100% functional without an internet connection.
 
 ## How to Run Locally
@@ -61,9 +61,9 @@ This application uses a local SQLite system and comes pre-populated with several
 - **Administrator**
   - Email: `admin@library.com`
   - Password: `admin123`
-- **Librarian (Pustakawan)**
-  - Email: `pustakawan@library.com`
-  - Password: `pustakawan123`
+- **Librarian**
+  - Email: `librarian@library.com`
+  - Password: `librarian123`
 
 For the **Student** role, you can register a new account directly through the **Register** button on the initial application page.
 
@@ -73,12 +73,12 @@ Here are the application interfaces based on your screenshots:
 
 <p align="center">
   <img src="screenshots/dashboard.jpg" width="30%" alt="Dashboard" />
-  <img src="screenshots/history.jpg" width="30%" alt="Riwayat Peminjaman" />
-  <img src="screenshots/profile.jpg" width="30%" alt="Profil" />
+  <img src="screenshots/history.jpg" width="30%" alt="Borrowing History" />
+  <img src="screenshots/profile.jpg" width="30%" alt="Profile" />
 </p>
 <p align="center">
-  <img src="screenshots/borrowed.jpg" width="30%" alt="Buku Dipinjam" />
-  <img src="screenshots/about.jpg" width="30%" alt="Tentang Aplikasi" />
+  <img src="screenshots/borrowed.jpg" width="30%" alt="Borrowed Books" />
+  <img src="screenshots/about.jpg" width="30%" alt="About App" />
 </p>
 
 ---
