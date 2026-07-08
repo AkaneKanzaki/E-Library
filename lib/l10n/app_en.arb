@@ -16,5 +16,16 @@
   "borrowHistory": "Borrow History",
   "darkMode": "Dark Mode",
   "language": "Language",
-  "logout": "Logout"
+  "logout": "Logout",
+  "borrowingStatistics": "Borrowing Statistics",
+  "borrowedBooks": "Borrowed Books",
+  "totalBorrowing": "Total Borrowing",
+  "popularBooks": "Popular Books",
+  "welcomeAdmin": "Welcome, Administrator",
+  "mainMenu": "Main Menu",
+  "manageUsers": "Manage Users",
+  "reports": "Reports",
+  "welcomeLibrarian": "Welcome, Librarian",
+  "manageBooks": "Manage Books",
+  "manageBorrowing": "Manage Borrowing"
 }

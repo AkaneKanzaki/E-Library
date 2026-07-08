@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/book_provider.dart';
-import '../../pages/pustakawan/form_buku_page.dart';
+import '../../pages/librarian/form_buku_page.dart';
 
 class KelolaBukuPage extends StatelessWidget {
   const KelolaBukuPage({super.key});

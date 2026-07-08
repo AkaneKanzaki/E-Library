@@ -16,5 +16,16 @@
   "borrowHistory": "Riwayat Peminjaman",
   "darkMode": "Mode Gelap",
   "language": "Bahasa",
-  "logout": "Keluar"
+  "logout": "Keluar",
+  "borrowingStatistics": "Statistik Peminjaman",
+  "borrowedBooks": "Buku Dipinjam",
+  "totalBorrowing": "Total Peminjaman",
+  "popularBooks": "Buku Populer",
+  "welcomeAdmin": "Selamat datang, Administrator",
+  "mainMenu": "Menu Utama",
+  "manageUsers": "Kelola Pengguna",
+  "reports": "Laporan",
+  "welcomeLibrarian": "Selamat datang, Pustakawan",
+  "manageBooks": "Kelola Buku",
+  "manageBorrowing": "Daftar Peminjaman"
 }

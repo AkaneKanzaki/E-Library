@@ -4,6 +4,7 @@ import '../../providers/auth_provider.dart';
 import '../../main.dart';
 import '../../pages/administrator/kelola_pengguna_page.dart';
 import './laporan_page.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 
 class DashboardAdministratorPage extends StatelessWidget {
   const DashboardAdministratorPage({super.key});
@@ -17,7 +18,8 @@ class DashboardAdministratorPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Dashboard Administrator'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -38,19 +40,20 @@ class DashboardAdministratorPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Selamat datang, ${user.nama}',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              '${AppLocalizations.of(context)!.welcomeAdmin}\n${user.nama}',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
             ),
             const SizedBox(height: 32),
             
-            const Text(
-              'Menu Utama',
+            Text(
+              AppLocalizations.of(context)!.mainMenu,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 16),
@@ -63,8 +66,8 @@ class DashboardAdministratorPage extends StatelessWidget {
               children: [
                 _buildMenuCard(
                   context,
-                  icon: Icons.people,
-                  title: 'Kelola Pengguna',
+                  icon: Icons.people_outline,
+                  title: AppLocalizations.of(context)!.manageUsers,
                   color: Colors.blue,
                   onTap: () {
                     Navigator.push(
@@ -77,8 +80,8 @@ class DashboardAdministratorPage extends StatelessWidget {
                 ),
                 _buildMenuCard(
                   context,
-                  icon: Icons.analytics,
-                  title: 'Reports',
+                  icon: Icons.analytics_outlined,
+                  title: AppLocalizations.of(context)!.reports,
                   color: Colors.green,
                   onTap: () {
                     Navigator.push(
@@ -104,28 +107,44 @@ class DashboardAdministratorPage extends StatelessWidget {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(left: BorderSide(color: color, width: 5)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 48, color: color),
-              const SizedBox(height: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
               ),
-            ],
-          ),
+              child: Icon(icon, size: 32, color: color),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ],
         ),
       ),
     );

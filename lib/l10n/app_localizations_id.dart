@@ -58,4 +58,37 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get logout => 'Keluar';
+
+  @override
+  String get borrowingStatistics => 'Statistik Peminjaman';
+
+  @override
+  String get borrowedBooks => 'Buku Dipinjam';
+
+  @override
+  String get totalBorrowing => 'Total Peminjaman';
+
+  @override
+  String get popularBooks => 'Buku Populer';
+
+  @override
+  String get welcomeAdmin => 'Selamat datang, Administrator';
+
+  @override
+  String get mainMenu => 'Menu Utama';
+
+  @override
+  String get manageUsers => 'Kelola Pengguna';
+
+  @override
+  String get reports => 'Laporan';
+
+  @override
+  String get welcomeLibrarian => 'Selamat datang, Pustakawan';
+
+  @override
+  String get manageBooks => 'Kelola Buku';
+
+  @override
+  String get manageBorrowing => 'Daftar Peminjaman';
 }

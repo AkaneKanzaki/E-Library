@@ -101,7 +101,7 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
                 items: const [
                   DropdownMenuItem(value: 'siswa', child: Text('Siswa')),
                   DropdownMenuItem(
-                      value: 'pustakawan', child: Text('Pustakawan')),
+                      value: 'librarian', child: Text('Librarian')),
                   DropdownMenuItem(
                       value: 'administrator', child: Text('Administrator')),
                 ],

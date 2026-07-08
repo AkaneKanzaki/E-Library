@@ -10,16 +10,16 @@ class AuthProvider extends ChangeNotifier {
 
   final List<User> _users = [
     User(
-      email: 'admin@perpus.com',
+      email: 'admin@library.com',
       password: 'admin123',
       nama: 'Administrator',
       role: 'administrator',
     ),
     User(
-      email: 'pustakawan@perpus.com',
-      password: 'pustakawan123',
-      nama: 'Pustakawan',
-      role: 'pustakawan',
+      email: 'librarian@library.com',
+      password: 'librarian123',
+      nama: 'Librarian',
+      role: 'librarian',
     ),
   ];
 
@@ -42,7 +42,7 @@ class AuthProvider extends ChangeNotifier {
           (u) => u.email == savedEmail,
           orElse: () => User(email: '', password: '', nama: '', role: ''),
         );
-        
+
         if (user.email.isNotEmpty) {
           _currentUser = user;
           _isAuthenticated = true;
@@ -62,14 +62,14 @@ class AuthProvider extends ChangeNotifier {
         (u) => u.email == email && u.password == password,
         orElse: () => User(email: '', password: '', nama: '', role: ''),
       );
-      
+
       if (user.email.isEmpty) {
         _currentUser = null;
         _isAuthenticated = false;
         notifyListeners();
         return false;
       }
-      
+
       _currentUser = user;
       _isAuthenticated = true;
 
@@ -90,14 +90,14 @@ class AuthProvider extends ChangeNotifier {
   Future<void> logout() async {
     _isAuthenticated = false;
     _currentUser = null;
-    
+
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('email');
     } catch (e) {
       debugPrint('Error removing session: $e');
     }
-    
+
     notifyListeners();
   }
 

@@ -199,6 +199,72 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Keluar'**
   String get logout;
+
+  /// No description provided for @borrowingStatistics.
+  ///
+  /// In id, this message translates to:
+  /// **'Statistik Peminjaman'**
+  String get borrowingStatistics;
+
+  /// No description provided for @borrowedBooks.
+  ///
+  /// In id, this message translates to:
+  /// **'Buku Dipinjam'**
+  String get borrowedBooks;
+
+  /// No description provided for @totalBorrowing.
+  ///
+  /// In id, this message translates to:
+  /// **'Total Peminjaman'**
+  String get totalBorrowing;
+
+  /// No description provided for @popularBooks.
+  ///
+  /// In id, this message translates to:
+  /// **'Buku Populer'**
+  String get popularBooks;
+
+  /// No description provided for @welcomeAdmin.
+  ///
+  /// In id, this message translates to:
+  /// **'Selamat datang, Administrator'**
+  String get welcomeAdmin;
+
+  /// No description provided for @mainMenu.
+  ///
+  /// In id, this message translates to:
+  /// **'Menu Utama'**
+  String get mainMenu;
+
+  /// No description provided for @manageUsers.
+  ///
+  /// In id, this message translates to:
+  /// **'Kelola Pengguna'**
+  String get manageUsers;
+
+  /// No description provided for @reports.
+  ///
+  /// In id, this message translates to:
+  /// **'Laporan'**
+  String get reports;
+
+  /// No description provided for @welcomeLibrarian.
+  ///
+  /// In id, this message translates to:
+  /// **'Selamat datang, Pustakawan'**
+  String get welcomeLibrarian;
+
+  /// No description provided for @manageBooks.
+  ///
+  /// In id, this message translates to:
+  /// **'Kelola Buku'**
+  String get manageBooks;
+
+  /// No description provided for @manageBorrowing.
+  ///
+  /// In id, this message translates to:
+  /// **'Daftar Peminjaman'**
+  String get manageBorrowing;
 }
 
 class _AppLocalizationsDelegate

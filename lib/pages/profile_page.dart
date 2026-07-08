@@ -16,7 +16,9 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.profileTitle),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -26,12 +28,13 @@ class ProfilePage extends StatelessWidget {
             // Avatar
             CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.grey.shade200,
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: Text(
                 user.nama[0].toUpperCase(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
@@ -44,12 +47,14 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     _buildInfoRow(
+                      context,
                       icon: Icons.person,
                       label: 'Nama',
                       value: user.nama,
                     ),
                     const Divider(),
                     _buildInfoRow(
+                      context,
                       icon: Icons.email,
                       label: 'Email',
                       value: user.email,
@@ -110,23 +115,25 @@ class ProfilePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Borrowing Statistics',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context)!.borrowingStatistics,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 16),
                         _buildInfoRow(
+                          context,
                           icon: Icons.book,
-                          label: 'Borrowed Books',
+                          label: AppLocalizations.of(context)!.borrowedBooks,
                           value: jumlahDipinjam.toString(),
                         ),
                         const Divider(),
                         _buildInfoRow(
+                          context,
                           icon: Icons.history,
-                          label: 'Total Peminjaman',
+                          label: AppLocalizations.of(context)!.totalBorrowing,
                           value: jumlahRiwayat.toString(),
                         ),
                       ],
@@ -146,7 +153,7 @@ class ProfilePage extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.logout),
-                label: const Text('Logout'),
+                label: Text(AppLocalizations.of(context)!.logout),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
@@ -160,7 +167,8 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow({
+  Widget _buildInfoRow(
+    BuildContext context, {
     required IconData icon,
     required String label,
     required String value,
@@ -176,9 +184,9 @@ class ProfilePage extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               Text(

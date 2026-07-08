@@ -119,7 +119,7 @@ class KelolaPenggunaPage extends StatelessWidget {
     switch (role) {
       case 'administrator':
         return Colors.red;
-      case 'pustakawan':
+      case 'librarian':
         return Colors.green;
       default:
         return Colors.blue;

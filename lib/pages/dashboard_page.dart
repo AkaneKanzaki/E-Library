@@ -47,7 +47,7 @@ class DashboardPage extends StatelessWidget {
       );
     }
 
-    if (user.role == 'administrator' || user.role == 'pustakawan') {
+    if (user.role == 'administrator' || user.role == 'librarian') {
       return _buildAdminDashboard(context, user);
     } else {
       return _buildSiswaDashboard(context, user);
@@ -326,7 +326,7 @@ class DashboardPage extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
@@ -339,7 +339,7 @@ class DashboardPage extends StatelessWidget {
                                   ),
                                   child: _buildStatItem(
                                     icon: Icons.book,
-                                    label: 'Dipinjam',
+                                    label: AppLocalizations.of(context)!.borrowedBooks,
                                     value: jumlahDipinjam.toString(),
                                     color: Colors.blue,
                                   ),
@@ -358,7 +358,7 @@ class DashboardPage extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
@@ -371,7 +371,7 @@ class DashboardPage extends StatelessWidget {
                                   ),
                                   child: _buildStatItem(
                                     icon: Icons.history,
-                                    label: 'Riwayat',
+                                    label: AppLocalizations.of(context)!.borrowHistory,
                                     value: jumlahRiwayat.toString(),
                                     color: Colors.green,
                                   ),
@@ -387,11 +387,11 @@ class DashboardPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
-                    'Buku Populer',
+                    AppLocalizations.of(context)!.popularBooks,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade800,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ),

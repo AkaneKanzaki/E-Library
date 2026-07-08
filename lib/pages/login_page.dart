@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import './dashboard_page.dart';
-import './pustakawan/dashboard_pustakawan_page.dart';
+import './librarian/dashboard_librarian_page.dart';
 import './administrator/dashboard_administrator_page.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
+import './register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -87,7 +88,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Navigate to register (implemented later if needed)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const RegisterPage()),
+                          );
                         },
                         child: const Text('Register', style: TextStyle(fontWeight: FontWeight.w600)),
                       ),
@@ -119,10 +123,10 @@ class _LoginPageState extends State<LoginPage> {
       if (success) {
         final user = Provider.of<AuthProvider>(context, listen: false).currentUser;
         
-        if (user?.role == 'pustakawan') {
+        if (user?.role == 'librarian') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const DashboardPustakawanPage()),
+            MaterialPageRoute(builder: (context) => const DashboardLibrarianPage()),
           );
         } else if (user?.role == 'administrator') {
           Navigator.pushReplacement(

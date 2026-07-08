@@ -58,4 +58,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get borrowingStatistics => 'Borrowing Statistics';
+
+  @override
+  String get borrowedBooks => 'Borrowed Books';
+
+  @override
+  String get totalBorrowing => 'Total Borrowing';
+
+  @override
+  String get popularBooks => 'Popular Books';
+
+  @override
+  String get welcomeAdmin => 'Welcome, Administrator';
+
+  @override
+  String get mainMenu => 'Main Menu';
+
+  @override
+  String get manageUsers => 'Manage Users';
+
+  @override
+  String get reports => 'Reports';
+
+  @override
+  String get welcomeLibrarian => 'Welcome, Librarian';
+
+  @override
+  String get manageBooks => 'Manage Books';
+
+  @override
+  String get manageBorrowing => 'Manage Borrowing';
 }
