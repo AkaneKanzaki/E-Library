@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/peminjaman_provider.dart';
-import '../providers/book_provider.dart';
-import '../providers/auth_provider.dart';
-import '../models/book.dart';
-import '../models/peminjaman.dart';
+import '../../providers/peminjaman_provider.dart';
+import '../../providers/book_provider.dart';
+import '../../providers/auth_provider.dart';
+import '../../models/book.dart';
+import '../../models/peminjaman.dart';
 
 class PinjamBukuPage extends StatefulWidget {
   const PinjamBukuPage({super.key});

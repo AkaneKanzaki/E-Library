@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/book_provider.dart';
-import '../models/book.dart';
+import '../../providers/book_provider.dart';
+import '../../models/book.dart';
 import './book_detail_page.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
 

@@ -35,7 +35,14 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+            flutter build apk --release --build-name=$VERSION --build-number=${{ github.run_number }}
+          else
+            flutter build apk --release
+          fi
+        shell: bash
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

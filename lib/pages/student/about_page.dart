@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:package_info_plus/package_info_plus.dart';
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
@@ -33,11 +33,17 @@ class AboutPage extends StatelessWidget {
                   ),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Version 1.0.0',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+            FutureBuilder<PackageInfo>(
+              future: PackageInfo.fromPlatform(),
+              builder: (context, snapshot) {
+                final version = snapshot.hasData ? snapshot.data!.version : 'Loading...';
+                return Text(
+                  'v$version',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 32),
             Text(
@@ -97,7 +103,7 @@ class AboutPage extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              '© 2024 E-Library Mobile\nMIT License',
+              '© 2026 E-Library Mobile\nMIT License',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,

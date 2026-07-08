@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/book.dart';
+import '../../models/book.dart';
 
 class ReadBookPage extends StatefulWidget {
   final Book book;

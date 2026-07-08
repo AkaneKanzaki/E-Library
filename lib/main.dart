@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:elibrary/providers/auth_provider.dart';
-import 'package:elibrary/pages/login_page.dart';
-import 'package:elibrary/pages/register_page.dart';
-import 'package:elibrary/pages/about_page.dart';
+import 'package:elibrary/pages/auth/login_page.dart';
+import 'package:elibrary/pages/auth/register_page.dart';
+import 'package:elibrary/pages/student/about_page.dart';
 import 'package:elibrary/providers/book_provider.dart';
 import 'package:elibrary/providers/peminjaman_provider.dart';
 import 'package:elibrary/providers/favorite_provider.dart';
@@ -12,10 +13,11 @@ import 'package:elibrary/providers/locale_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:elibrary/pages/dashboard_page.dart';
+import 'package:elibrary/pages/student/dashboard_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(
     MultiProvider(
       providers: [
@@ -59,7 +61,7 @@ class MyApp extends StatelessWidget {
                   const Color(0xFFF8FAFC), // Very light gray-blue background
             ),
             useMaterial3: true,
-            textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
+            textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme),
             appBarTheme: const AppBarTheme(
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -233,7 +235,7 @@ class HomePage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
-                child: const Text('Login'),
+                child: Text(AppLocalizations.of(context)!.loginButton),
               ),
               const SizedBox(height: 16),
               OutlinedButton(
@@ -257,7 +259,7 @@ class HomePage extends StatelessWidget {
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 16),
                 ),
-                child: const Text('Register'),
+                child: Text(AppLocalizations.of(context)!.registerButton),
               ),
               const SizedBox(height: 32),
               TextButton(
@@ -271,7 +273,7 @@ class HomePage extends StatelessWidget {
                   foregroundColor:
                       Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-                child: const Text('Tentang Aplikasi'),
+                child: Text(AppLocalizations.of(context)!.aboutTitle),
               ),
             ],
           ),

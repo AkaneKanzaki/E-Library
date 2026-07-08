@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
-import './dashboard_page.dart';
-import './librarian/dashboard_librarian_page.dart';
-import './administrator/dashboard_administrator_page.dart';
+import '../../providers/auth_provider.dart';
+import '../student/dashboard_page.dart';
+import '../librarian/dashboard_librarian_page.dart';
+import '../administrator/dashboard_administrator_page.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
 import './register_page.dart';
 

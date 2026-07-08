@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
-import '../providers/peminjaman_provider.dart';
-import './search_book_page.dart';
-import './pinjam_buku_page.dart';
-import './login_page.dart';
+import '../../providers/auth_provider.dart';
+import '../../providers/peminjaman_provider.dart';
+import '../books/search_book_page.dart';
+import '../books/pinjam_buku_page.dart';
+import '../auth/login_page.dart';
 import './riwayat_page.dart';
 import './profile_page.dart';
-import '../providers/book_provider.dart';
-import './book_detail_page.dart';
+import '../../providers/book_provider.dart';
+import '../books/book_detail_page.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import '../models/user.dart';
+import '../../models/user.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
-import './administrator/dashboard_administrator_page.dart';
-import './librarian/dashboard_librarian_page.dart';
+import '../administrator/dashboard_administrator_page.dart';
+import '../librarian/dashboard_librarian_page.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -260,7 +260,6 @@ class DashboardPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                          flex: 4,
                                           child: Image.asset(
                                             book.coverUrl,
                                             fit: BoxFit.cover,
@@ -268,18 +267,16 @@ class DashboardPage extends StatelessWidget {
                                             width: double.infinity,
                                             errorBuilder: (context, error, stackTrace) {
                                               return Container(
-                                                color: Colors.grey.shade200,
+                                                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                                                 child: const Icon(Icons.book, size: 40),
                                               );
                                             },
                                           ),
                                         ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            padding: const EdgeInsets.all(8),
-                                            color: Colors.white,
-                                            child: Column(
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          color: Theme.of(context).colorScheme.surface,
+                                          child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
@@ -307,7 +304,6 @@ class DashboardPage extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   ),
