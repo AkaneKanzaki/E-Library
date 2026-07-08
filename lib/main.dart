@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:e_library1/providers/auth_provider.dart';
+import 'package:e_library1/pages/login_page.dart';
+import 'package:e_library1/pages/register_page.dart';
+import 'package:e_library1/pages/about_page.dart';
+import 'package:e_library1/providers/book_provider.dart';
+import 'package:e_library1/providers/peminjaman_provider.dart';
+import 'package:e_library1/providers/favorite_provider.dart';
+
+import 'package:e_library1/pages/dashboard_page.dart';
+
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => BookProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+        ChangeNotifierProvider(
+          create: (context) => PeminjamanProvider(
+            Provider.of<BookProvider>(context, listen: false),
+          ),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'E-Library Mobile',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: Consumer<AuthProvider>(
+        builder: (context, auth, child) {
+          if (!auth.isInitialized) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          if (auth.isAuthenticated) {
+            return const DashboardPage();
+          }
+          return const HomePage();
+        },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('E-Library Mobile'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 20),
+            // Logo atau Gambar Pustaka
+            Icon(
+              Icons.library_books,
+              size: 100,
+              color: Theme.of(context).primaryColor,
+            ),
+            const SizedBox(height: 30),
+            // Tombol-tombol Menu
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text('Login'),
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text('Daftar Anggota Baru'),
+              ),
+            ),
+            const SizedBox(height: 16),
+            OutlinedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutPage()),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text('Tentang Aplikasi'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
