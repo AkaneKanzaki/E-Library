@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       authProvider.register(user, _passwordController.text);
       
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Pendaftaran berhasil!')),
+        const SnackBar(content: Text('Registration successful!')),
       );
       
       Navigator.pop(context); // Kembali ke halaman login
@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Anggota Baru'),
+        title: const Text('Register New Member'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -53,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _namaController,
                 decoration: const InputDecoration(
-                  labelText: 'Nama Lengkap',
+                  labelText: 'Full Name',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -121,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 onPressed: _register,
                 child: const Padding(
                   padding: EdgeInsets.all(12.0),
-                  child: Text('Daftar'),
+                  child: Text('Register'),
                 ),
               ),
             ],

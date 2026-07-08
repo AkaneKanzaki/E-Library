@@ -30,7 +30,7 @@ class DashboardPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Silakan login terlebih dahulu'),
+              const Text('Please login first'),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
@@ -134,7 +134,7 @@ class DashboardPage extends StatelessWidget {
                       // Halaman Manajemen Buku di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Manajemen Buku: Coming Soon')),
+                            content: Text('Book Management: Coming Soon')),
                       );
                     },
                   ),
@@ -147,7 +147,7 @@ class DashboardPage extends StatelessWidget {
                       // Halaman Daftar Anggota di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Daftar Anggota: Coming Soon')),
+                            content: Text('Member List: Coming Soon')),
                       );
                     },
                   ),
@@ -160,18 +160,18 @@ class DashboardPage extends StatelessWidget {
                       // Halaman Approval di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Approval Peminjaman: Coming Soon')),
+                            content: Text('Borrowing Approval: Coming Soon')),
                       );
                     },
                   ),
                   _buildAdminMenuCard(
                     context,
-                    title: 'Laporan',
+                    title: 'Reports',
                     icon: Icons.bar_chart,
                     color: Colors.purple,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Laporan: Coming Soon')),
+                        const SnackBar(content: Text('Reports: Coming Soon')),
                       );
                     },
                   ),

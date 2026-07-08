@@ -67,7 +67,7 @@ class ProfilePage extends StatelessWidget {
                 child: Consumer<ThemeProvider>(
                   builder: (context, themeProvider, child) {
                     return SwitchListTile(
-                      title: const Text('Mode Gelap'),
+                      title: const Text('Dark Mode'),
                       secondary: const Icon(Icons.dark_mode),
                       value: themeProvider.isDarkMode,
                       onChanged: (bool value) {
@@ -111,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Statistik Peminjaman',
+                          'Borrowing Statistics',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class ProfilePage extends StatelessWidget {
                         const SizedBox(height: 16),
                         _buildInfoRow(
                           icon: Icons.book,
-                          label: 'Buku Dipinjam',
+                          label: 'Borrowed Books',
                           value: jumlahDipinjam.toString(),
                         ),
                         const Divider(),
@@ -146,7 +146,7 @@ class ProfilePage extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.logout),
-                label: const Text('Keluar'),
+                label: const Text('Logout'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,

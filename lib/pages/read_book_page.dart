@@ -50,7 +50,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error memuat PDF: $e')),
+          SnackBar(content: Text('Error loading PDF: $e')),
         );
       }
     }
@@ -66,7 +66,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
       body: _isLoading 
         ? const Center(child: CircularProgressIndicator())
         : _localPath == null
-          ? const Center(child: Text('Gagal memuat PDF'))
+          ? const Center(child: Text('Failed to load PDF'))
           : Column(
               children: [
                 Padding(
@@ -118,7 +118,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
                                 _pdfController?.setPage(_currentPage - 2);
                               }
                             : null,
-                        child: const Text('Sebelumnya'),
+                        child: const Text('Previous'),
                       ),
                       ElevatedButton(
                         onPressed: _totalPages == 0 || _currentPage < _totalPages
@@ -126,7 +126,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
                                 _pdfController?.setPage(_currentPage);
                               }
                             : null,
-                        child: const Text('Selanjutnya'),
+                        child: const Text('Next'),
                       ),
                     ],
                   ),

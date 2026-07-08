@@ -12,7 +12,7 @@ class DaftarPeminjamanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Peminjaman'),
+        title: const Text('Borrowing List'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Consumer2<PeminjamanProvider, BookProvider>(
@@ -21,7 +21,7 @@ class DaftarPeminjamanPage extends StatelessWidget {
 
           if (peminjaman.isEmpty) {
             return const Center(
-              child: Text('Belum ada peminjaman'),
+              child: Text('No borrowings yet'),
             );
           }
 
@@ -88,13 +88,13 @@ class DaftarPeminjamanPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text('Peminjam: ${peminjaman.userId}'),
-            Text('Penulis: ${book.penulis}'),
+            Text('Borrower: ${peminjaman.userId}'),
+            Text('Author: ${book.penulis}'),
             const SizedBox(height: 8),
-            Text('Tanggal Pinjam: ${_formatDate(peminjaman.tanggalPinjam)}'),
-            Text('Batas Waktu: ${_formatDate(peminjaman.batasWaktu)}'),
+            Text('Borrow Date: ${_formatDate(peminjaman.tanggalPinjam)}'),
+            Text('Due Date: ${_formatDate(peminjaman.batasWaktu)}'),
             if (!isActive && peminjaman.tanggalKembali != null)
-              Text('Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali!)}'),
+              Text('Return Date: ${_formatDate(peminjaman.tanggalKembali!)}'),
             if (isActive) ...[
               const SizedBox(height: 16),
               SizedBox(
@@ -105,12 +105,12 @@ class DaftarPeminjamanPage extends StatelessWidget {
                     if (success) {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Buku berhasil dikembalikan')),
+                          const SnackBar(content: Text('Book successfully returned')),
                         );
                       }
                     }
                   },
-                  child: const Text('Konfirmasi Pengembalian'),
+                  child: const Text('Confirm Return'),
                 ),
               ),
             ],

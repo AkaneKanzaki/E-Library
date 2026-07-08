@@ -16,7 +16,7 @@ class DashboardPustakawanPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Dashboard Pustakawan'),
+        title: const Text('Librarian Dashboard'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -66,7 +66,7 @@ class DashboardPustakawanPage extends StatelessWidget {
                 _buildMenuCard(
                   context,
                   icon: Icons.book,
-                  title: 'Kelola Buku',
+                  title: 'Manage Books',
                   color: Colors.blue,
                   onTap: () {
                     Navigator.push(
@@ -80,7 +80,7 @@ class DashboardPustakawanPage extends StatelessWidget {
                 _buildMenuCard(
                   context,
                   icon: Icons.history,
-                  title: 'Daftar Peminjaman',
+                  title: 'Borrowing List',
                   color: Colors.orange,
                   onTap: () {
                     Navigator.push(

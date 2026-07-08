@@ -11,7 +11,7 @@ class LaporanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Laporan'),
+        title: const Text('Reports'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -56,7 +56,7 @@ class LaporanPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     _buildStatCard(
-                      'Buku Dipinjam',
+                      'Borrowed Books',
                       bukuDipinjam.toString(),
                       Icons.bookmark,
                       Colors.orange,
@@ -116,7 +116,7 @@ class LaporanPage extends StatelessWidget {
                   return const Card(
                     child: Padding(
                       padding: EdgeInsets.all(16),
-                      child: Text('Tidak ada peminjaman aktif'),
+                      child: Text('No active borrowings'),
                     ),
                   );
                 }
@@ -127,8 +127,8 @@ class LaporanPage extends StatelessWidget {
                     return Card(
                       margin: const EdgeInsets.only(bottom: 8),
                       child: ListTile(
-                        title: Text(book?.judul ?? 'Buku tidak ditemukan'),
-                        subtitle: Text('Peminjam: ${p.userId}'),
+                        title: Text(book?.judul ?? 'Book not found'),
+                        subtitle: Text('Borrower: ${p.userId}'),
                         trailing: Text(_formatDate(p.batasWaktu)),
                       ),
                     );

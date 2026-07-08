@@ -129,7 +129,7 @@ class HomePage extends StatelessWidget {
               },
               child: const Padding(
                 padding: EdgeInsets.all(12.0),
-                child: Text('Daftar Anggota Baru'),
+                child: Text('Register New Member'),
               ),
             ),
             const SizedBox(height: 16),

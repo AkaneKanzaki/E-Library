@@ -78,7 +78,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(widget.book == null
-              ? 'Buku berhasil ditambahkan'
+              ? 'Book successfully added'
               : 'Buku berhasil diperbarui'),
         ),
       );
@@ -89,7 +89,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.book == null ? 'Tambah Buku' : 'Edit Buku'),
+        title: Text(widget.book == null ? 'Add Book' : 'Edit Book'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -122,7 +122,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _penerbitController,
-                decoration: const InputDecoration(labelText: 'Penerbit'),
+                decoration: const InputDecoration(labelText: 'Publisher'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Penerbit harus diisi';
@@ -156,7 +156,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _deskripsiController,
-                decoration: const InputDecoration(labelText: 'Deskripsi'),
+                decoration: const InputDecoration(labelText: 'Description'),
                 maxLines: 3,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -185,7 +185,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
               ),
               const SizedBox(height: 16),
               SwitchListTile(
-                title: const Text('Tersedia'),
+                title: const Text('Available'),
                 value: _tersedia,
                 onChanged: (bool value) {
                   setState(() {
@@ -197,7 +197,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
               ElevatedButton(
                 onPressed: _submitForm,
                 child: Text(
-                    widget.book == null ? 'Tambah Buku' : 'Simpan Perubahan'),
+                    widget.book == null ? 'Add Book' : 'Simpan Perubahan'),
               ),
             ],
           ),

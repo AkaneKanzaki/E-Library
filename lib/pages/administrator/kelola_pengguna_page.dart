@@ -10,7 +10,7 @@ class KelolaPenggunaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kelola Pengguna'),
+        title: const Text('Manage Users'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -32,7 +32,7 @@ class KelolaPenggunaPage extends StatelessWidget {
 
           if (users.isEmpty) {
             return const Center(
-              child: Text('Belum ada pengguna'),
+              child: Text('No users yet'),
             );
           }
 
@@ -78,13 +78,13 @@ class KelolaPenggunaPage extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Hapus Pengguna'),
+                              title: const Text('Delete User'),
                               content: Text(
-                                  'Apakah Anda yakin ingin menghapus pengguna "${user.nama}"?'),
+                                  'Are you sure you want to delete user "${user.nama}"?'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
-                                  child: const Text('Batal'),
+                                  child: const Text('Cancel'),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -97,7 +97,7 @@ class KelolaPenggunaPage extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: const Text('Hapus'),
+                                  child: const Text('Delete'),
                                 ),
                               ],
                             ),

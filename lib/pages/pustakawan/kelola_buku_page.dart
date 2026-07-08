@@ -10,7 +10,7 @@ class KelolaBukuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kelola Buku'),
+        title: const Text('Manage Books'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -42,7 +42,7 @@ class KelolaBukuPage extends StatelessWidget {
                     children: [
                       Text(book.penulis),
                       Text(
-                        book.tersedia ? 'Tersedia' : 'Dipinjam',
+                        book.tersedia ? 'Available' : 'Dipinjam',
                         style: TextStyle(
                           color: book.tersedia ? Colors.green : Colors.red,
                         ),
@@ -69,13 +69,13 @@ class KelolaBukuPage extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Hapus Buku'),
+                              title: const Text('Delete Book'),
                               content: Text(
                                   'Apakah Anda yakin ingin menghapus buku "${book.judul}"?'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
-                                  child: const Text('Batal'),
+                                  child: const Text('Cancel'),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -84,10 +84,10 @@ class KelolaBukuPage extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content:
-                                              Text('Buku berhasil dihapus')),
+                                              Text('Book successfully deleted')),
                                     );
                                   },
-                                  child: const Text('Hapus'),
+                                  child: const Text('Delete'),
                                 ),
                               ],
                             ),

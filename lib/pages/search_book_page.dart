@@ -21,7 +21,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cari Buku'),
+        title: const Text('Search Books'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Column(
@@ -138,7 +138,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        book.tersedia ? 'Tersedia' : 'Dipinjam',
+                        book.tersedia ? 'Available' : 'Dipinjam',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,

@@ -31,7 +31,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Buku'),
+        title: const Text('Book Details'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -108,7 +108,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          widget.book.tersedia ? 'Tersedia' : 'Dipinjam',
+                          widget.book.tersedia ? 'Available' : 'Dipinjam',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -137,7 +137,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildInfoRow('Penerbit', widget.book.penerbit),
+                          _buildInfoRow('Publisher', widget.book.penerbit),
                           const Divider(),
                           _buildInfoRow(
                               'Tahun Terbit', widget.book.tahunTerbit),
@@ -154,7 +154,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
                   // Deskripsi
                   const Text(
-                    'Deskripsi',
+                    'Description',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -195,7 +195,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                     );
                                   },
                                   icon: const Icon(Icons.book_outlined),
-                                  label: const Text('Baca Buku'),
+                                  label: const Text('Read Book'),
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 12),
@@ -217,7 +217,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                               SnackBar(
                                                 content: Text(
                                                   success
-                                                      ? 'Buku berhasil dipinjam'
+                                                      ? 'Book successfully borrowed'
                                                       : 'Gagal meminjam buku',
                                                 ),
                                               ),

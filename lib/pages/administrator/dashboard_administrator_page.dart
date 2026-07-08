@@ -78,7 +78,7 @@ class DashboardAdministratorPage extends StatelessWidget {
                 _buildMenuCard(
                   context,
                   icon: Icons.analytics,
-                  title: 'Laporan',
+                  title: 'Reports',
                   color: Colors.green,
                   onTap: () {
                     Navigator.push(

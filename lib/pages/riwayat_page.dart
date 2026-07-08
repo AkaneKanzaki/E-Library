@@ -21,7 +21,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Riwayat Peminjaman'),
+        title: const Text('Borrowing History'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Consumer2<PeminjamanProvider, BookProvider>(
@@ -30,7 +30,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
 
           if (riwayat.isEmpty) {
             return const Center(
-              child: Text('Belum ada riwayat peminjaman'),
+              child: Text('No borrowing history yet'),
             );
           }
 
@@ -96,12 +96,12 @@ class _RiwayatPageState extends State<RiwayatPage> {
               ],
             ),
             const SizedBox(height: 8),
-            Text('Penulis: ${book.penulis}'),
+            Text('Author: ${book.penulis}'),
             const SizedBox(height: 8),
-            Text('Tanggal Pinjam: ${_formatDate(peminjaman.tanggalPinjam)}'),
-            Text('Batas Waktu: ${_formatDate(peminjaman.batasWaktu)}'),
+            Text('Borrow Date: ${_formatDate(peminjaman.tanggalPinjam)}'),
+            Text('Due Date: ${_formatDate(peminjaman.batasWaktu)}'),
             if (!isActive && peminjaman.tanggalKembali != null)
-              Text('Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali!)}'),
+              Text('Return Date: ${_formatDate(peminjaman.tanggalKembali!)}'),
             
             if (denda > 0) ...[
               const SizedBox(height: 8),

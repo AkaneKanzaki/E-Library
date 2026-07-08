@@ -30,7 +30,7 @@ class _PinjamBukuPageState extends State<PinjamBukuPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Buku Dipinjam'),
+        title: const Text('Borrowed Books'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Consumer2<PeminjamanProvider, BookProvider>(
@@ -41,7 +41,7 @@ class _PinjamBukuPageState extends State<PinjamBukuPage> {
 
           if (peminjaman.isEmpty) {
             return const Center(
-              child: Text('Belum ada buku yang dipinjam'),
+              child: Text('No books borrowed yet'),
             );
           }
 
@@ -79,13 +79,13 @@ class _PinjamBukuPageState extends State<PinjamBukuPage> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            Text('Penulis: ${book.penulis}'),
+            Text('Author: ${book.penulis}'),
             const SizedBox(height: 8),
             Text(
-              'Tanggal Pinjam: ${_formatDate(peminjaman.tanggalPinjam)}',
+              'Borrow Date: ${_formatDate(peminjaman.tanggalPinjam)}',
             ),
             Text(
-              'Batas Waktu: ${_formatDate(peminjaman.batasWaktu)}',
+              'Due Date: ${_formatDate(peminjaman.batasWaktu)}',
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -97,17 +97,17 @@ class _PinjamBukuPageState extends State<PinjamBukuPage> {
                   await peminjamanProvider.refreshPeminjaman();
                   if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Buku berhasil dikembalikan')),
+                    const SnackBar(content: Text('Book successfully returned')),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Gagal mengembalikan buku. Silakan coba lagi'),
+                      content: Text('Failed to return book. Please try again'),
                     ),
                   );
                 }
               },
-              child: const Text('Kembalikan Buku'),
+              child: const Text('Return Book'),
             ),
           ],
         ),
