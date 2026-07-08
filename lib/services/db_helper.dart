@@ -19,7 +19,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _createDB,
       onUpgrade: _upgradeDB,
     );
@@ -70,7 +70,21 @@ CREATE TABLE favorites (
 
   Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
-      await db.execute('ALTER TABLE borrowings ADD COLUMN dueDate TEXT');
+      try {
+        await db.execute('ALTER TABLE borrowings ADD COLUMN dueDate TEXT');
+      } catch (e) {
+        // Ignore if column already exists or table doesn't exist yet
+      }
+    }
+    if (oldVersion < 3) {
+      // We renamed tables and columns from Indonesian to English.
+      // Easiest is to drop and recreate since it's dummy data.
+      await db.execute('DROP TABLE IF EXISTS buku');
+      await db.execute('DROP TABLE IF EXISTS peminjaman');
+      await db.execute('DROP TABLE IF EXISTS books');
+      await db.execute('DROP TABLE IF EXISTS borrowings');
+      await db.execute('DROP TABLE IF EXISTS favorites');
+      await _createDB(db, newVersion);
     }
   }
 

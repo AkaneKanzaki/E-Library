@@ -319,6 +319,7 @@ class DashboardPage extends StatelessWidget {
                         autoPlayAnimationDuration:
                             const Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
+                        showIndicator: false,
                       ),
                     );
                   },
