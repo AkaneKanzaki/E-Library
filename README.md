@@ -1,10 +1,12 @@
-# E-Library Mobile App
+# E-Library
 
-An offline-first Digital Library mobile application built using the **Flutter** framework and **SQLite**. This application is designed to provide a comprehensive library management ecosystem ranging from borrowing books, reading PDF books, to automated fine management based on a Role-Based Access Control (RBAC) system.
+![E-Library Banner](https://img.shields.io/badge/E--Library-Digital%20Library%20Gateway-primary?style=for-the-badge&logo=flutter)
 
-**Created by**: [@AkaneKanzaki (Muhammad Rizky Aulia)](https://github.com/AkaneKanzaki)
+**E-Library** is a high-performance, immersive Digital Library mobile application built entirely with **Flutter** and **SQLite**. Designed to provide a comprehensive library management ecosystem, E-Library allows you to seamlessly borrow books, read PDFs, and automatically manage fines based on a Role-Based Access Control (RBAC) system.
 
-## Key Features
+---
+
+## Features
 
 - **Role-Based Authentication**: Supports 3 access levels:
   - **Administrator**: Has full control over the system, including adding or removing Librarians and Students.
@@ -12,80 +14,98 @@ An offline-first Digital Library mobile application built using the **Flutter** 
   - **Student**: Can search for books, borrow books, read books, and view their fine history.
 - **Integrated PDF Reader**: Read PDF book files directly within the application. Equipped with an automatic bookmark memory, allowing users to resume reading from the last opened page.
 - **Automated Fine System**: Intelligently calculates the borrowing duration and delays, automatically accumulating fines if the return deadline is exceeded.
+- **Offline-First (SQLite)**: All user data, books, and borrowing histories are stored locally on the device without requiring an internet connection.
 - **Modern Immersive UI & Dark Mode**: Built with Material 3 design principles, featuring an immersive fullscreen layout by default and fully integrated Dark Mode.
 - **Multilingual Support**: Automatically adapts to device language settings (Supports English and Indonesian).
 - **Debounced Search**: A highly optimized book search feature (500ms debounce) to prevent UI lag on devices when typing book titles rapidly.
-- **Offline-First (SQLite)**: All user data, books, and borrowing histories are stored locally on the device without requiring an internet connection.
-- **Automated CI/CD Pipeline**: Fully configured with GitHub Actions to automatically build and attach APK releases whenever a new version tag (`v*`) is pushed to the repository.
+- **Automated CI/CD Pipeline**: Fully configured with GitHub Actions to automatically build, protect (Obfuscate/R8), sign, and attach APK releases.
 
-## Tech Stack & Architecture
+---
 
-### Core Stack
-- **Framework**: [Flutter](https://flutter.dev/) (SDK) with Material 3 Design
-- **Language**: [Dart](https://dart.dev/)
-- **State Management**: [provider](https://pub.dev/packages/provider) (Centralized App State)
-- **Database**: [sqflite](https://pub.dev/packages/sqflite) (Offline-First Local Storage)
-- **Key Libraries**:
-  - `shared_preferences`: Persistent storage for Theme & Locale settings
-  - `flutter_pdfview`: Native PDF rendering engine
-  - `package_info_plus`: Dynamic application versioning
-- **CI/CD**: **GitHub Actions** (Automated APK Build & Release)
+## Getting Started
 
-### Architecture Highlights
-- **Role-Based Routing**: The application dynamically determines the entry point and dashboard interface based on the authenticated user's role (Administrator, Librarian, Student).
-- **Service-Oriented Providers**: Business logic is separated from UI using the Provider pattern (e.g., `AuthProvider`, `BookProvider`, `BorrowingProvider`), ensuring clean, maintainable, and testable code.
-- **Offline-First Strategy**: All crucial transactions (borrowing, returning, fine accumulation) are executed against the local SQLite database synchronously, making the app 100% functional without an internet connection.
+### Prerequisites
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (latest stable version recommended)
+- A connected device or emulator (Android recommended)
 
-## How to Run Locally
-
-1. **Prerequisites**: Ensure that you have installed the Flutter SDK (latest version recommended).
-2. **Clone the Repository**:
+### Installation
+1. Clone the repository:
    ```bash
    git clone https://github.com/AkaneKanzaki/E-Library.git
+   ```
+2. Navigate to the project directory:
+   ```bash
    cd E-Library
    ```
-3. **Install Dependencies**:
+3. Get the dependencies:
    ```bash
    flutter pub get
    ```
-4. **Run the Application**:
-   Ensure your emulator is running or your physical device is connected (with USB Debugging enabled).
+4. Run the app:
    ```bash
    flutter run
    ```
 
-## Default Accounts (Dummy Data)
+### Default Accounts (Dummy Data)
+- **Administrator**: `admin@library.com` / `admin123`
+- **Librarian**: `librarian@library.com` / `librarian123`
+- **Student**: Register a new account via the app.
 
-This application uses a local SQLite system and comes pre-populated with several built-in accounts for testing and demonstration purposes:
+---
 
-- **Administrator**
-  - Email: `admin@library.com`
-  - Password: `admin123`
-- **Librarian**
-  - Email: `librarian@library.com`
-  - Password: `librarian123`
+## Tech Stack & Architecture
 
-For the **Student** role, you can register a new account directly through the **Register** button on the initial application page.
+- **Framework**: Flutter / Dart
+- **State Management**: `Provider` (ChangeNotifier based architecture)
+- **Database**: `sqflite` (Offline-First Local Storage)
+- **Key Libraries**: `shared_preferences`, `flutter_pdfview`, `package_info_plus`
+- **CI/CD**: GitHub Actions (Automated APK Build & Release)
+
+---
 
 ## Screenshots
 
-Here are the application interfaces based on your screenshots:
+### Core Interface
+| Splash Screen | Dashboard (Student) |
+| --- | --- |
+| ![Splash Screen](docs/screenshots/1_splash.jpg) | ![Dashboard Student](docs/screenshots/2_dashboard.jpg) |
 
-<p align="center">
-  <img src="screenshots/dashboard.jpg" width="30%" alt="Dashboard" />
-  <img src="screenshots/history.jpg" width="30%" alt="Borrowing History" />
-  <img src="screenshots/profile.jpg" width="30%" alt="Profile" />
-</p>
-<p align="center">
-  <img src="screenshots/borrowed.jpg" width="30%" alt="Borrowed Books" />
-  <img src="screenshots/about.jpg" width="30%" alt="About App" />
-</p>
+| Dashboard (Admin) | Dashboard (Librarian) |
+| --- | --- |
+| ![Dashboard Admin](docs/screenshots/6_dashboard_admin.jpg) | ![Dashboard Librarian](docs/screenshots/13_dashboard_librarian.jpg) |
+
+### Books & Borrowing (Student)
+| Book Details | Borrowed Books | Borrowing History |
+| --- | --- | --- |
+| ![Book Details](docs/screenshots/7_book_details.jpg) | ![Borrowed Books](docs/screenshots/9_borrowed.jpg) | ![Borrowing History](docs/screenshots/10_history.jpg) |
+
+### Management & Reports (Admin/Librarian)
+| Manage Books | Manage Users |
+| --- | --- |
+| ![Manage Books](docs/screenshots/15_manage_books.jpg) | ![Manage Users](docs/screenshots/12_manage_users.jpg) |
+
+| Borrowing List | Reports |
+| --- | --- |
+| ![Borrowing List](docs/screenshots/11_borrowing_list.jpg) | ![Reports](docs/screenshots/14_reports.jpg) |
+
+### Authentication & Settings
+| Login | Register | Profile & Settings |
+| --- | --- | --- |
+| ![Login](docs/screenshots/3_login.jpg) | ![Register](docs/screenshots/4_register.jpg) | ![Profile](docs/screenshots/8_profile.jpg) |
+
+### Miscellaneous
+**About App**
+<br>
+![About App](docs/screenshots/5_about.jpg)
 
 ---
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/AkaneKanzaki/E-Library/issues) if you want to contribute.
+Contributions, issues, and feature requests are welcome! 
+Feel free to check [issues page](https://github.com/AkaneKanzaki/E-Library/issues) if you want to contribute.
+
+---
 
 ## License
 
