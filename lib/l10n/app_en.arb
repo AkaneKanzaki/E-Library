@@ -1,0 +1,20 @@
+{
+  "@@locale": "en",
+  "loginTitle": "Login",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "loginButton": "Login",
+  "loginFailedMsg": "Login failed. Please try again.",
+  "registerTitle": "Register",
+  "registerButton": "Register",
+  "dashboardTitle": "Dashboard",
+  "profileTitle": "Profile",
+  "aboutTitle": "About App",
+  "searchBookHint": "Search book...",
+  "borrowButton": "Borrow Book",
+  "returnButton": "Return Book",
+  "borrowHistory": "Borrow History",
+  "darkMode": "Dark Mode",
+  "language": "Language",
+  "logout": "Logout"
+}

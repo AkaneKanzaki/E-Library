@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/peminjaman_provider.dart';
 import '../providers/theme_provider.dart';
-
+import '../providers/locale_provider.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -14,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil'),
+        title: Text(AppLocalizations.of(context)!.profileTitle),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -71,6 +72,24 @@ class ProfilePage extends StatelessWidget {
                       value: themeProvider.isDarkMode,
                       onChanged: (bool value) {
                         themeProvider.toggleTheme(value);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Consumer<LocaleProvider>(
+                  builder: (context, localeProvider, child) {
+                    return SwitchListTile(
+                      title: Text(AppLocalizations.of(context)!.language),
+                      subtitle: Text(localeProvider.locale.languageCode == 'id' ? 'Bahasa Indonesia' : 'English'),
+                      secondary: const Icon(Icons.language),
+                      value: localeProvider.locale.languageCode == 'en',
+                      onChanged: (bool value) {
+                        localeProvider.toggleLocale();
                       },
                     );
                   },

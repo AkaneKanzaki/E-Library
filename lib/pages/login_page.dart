@@ -4,6 +4,7 @@ import '../providers/auth_provider.dart';
 import './dashboard_page.dart';
 import './pustakawan/dashboard_pustakawan_page.dart';
 import './administrator/dashboard_administrator_page.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(AppLocalizations.of(context)!.loginTitle),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
@@ -33,24 +34,24 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextField(
                 controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.emailLabel,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.passwordLabel,
+                  border: const OutlineInputBorder(),
                 ),
                 obscureText: true,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _handleLogin,
-                child: const Text('Login'),
+                child: Text(AppLocalizations.of(context)!.loginButton),
               ),
             ],
           ),
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login gagal. Silakan coba lagi')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.loginFailedMsg)),
         );
       }
     }

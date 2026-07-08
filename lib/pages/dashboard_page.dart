@@ -11,6 +11,7 @@ import '../providers/book_provider.dart';
 import './book_detail_page.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import '../models/user.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -22,7 +23,7 @@ class DashboardPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('E-Library'),
+          title: Text(AppLocalizations.of(context)!.dashboardTitle),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: Center(
@@ -38,7 +39,7 @@ class DashboardPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
-                child: const Text('Login'),
+                child: Text(AppLocalizations.of(context)!.loginButton),
               ),
             ],
           ),

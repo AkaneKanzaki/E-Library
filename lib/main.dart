@@ -8,6 +8,9 @@ import 'package:elibrary/providers/book_provider.dart';
 import 'package:elibrary/providers/peminjaman_provider.dart';
 import 'package:elibrary/providers/favorite_provider.dart';
 import 'package:elibrary/providers/theme_provider.dart';
+import 'package:elibrary/providers/locale_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 
 import 'package:elibrary/pages/dashboard_page.dart';
 
@@ -19,6 +22,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => BookProvider()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => LocaleProvider()),
         ChangeNotifierProvider(
           create: (context) => PeminjamanProvider(
             Provider.of<BookProvider>(context, listen: false),
@@ -35,10 +39,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
+    return Consumer2<ThemeProvider, LocaleProvider>(
+      builder: (context, themeProvider, localeProvider, child) {
         return MaterialApp(
           title: 'E-Library Mobile',
+          locale: localeProvider.locale,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,

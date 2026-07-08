@@ -1,0 +1,20 @@
+{
+  "@@locale": "id",
+  "loginTitle": "Login",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "loginButton": "Login",
+  "loginFailedMsg": "Login gagal. Silakan coba lagi.",
+  "registerTitle": "Daftar",
+  "registerButton": "Daftar",
+  "dashboardTitle": "Dashboard",
+  "profileTitle": "Profil",
+  "aboutTitle": "Tentang Aplikasi",
+  "searchBookHint": "Cari buku...",
+  "borrowButton": "Pinjam Buku",
+  "returnButton": "Kembalikan Buku",
+  "borrowHistory": "Riwayat Peminjaman",
+  "darkMode": "Mode Gelap",
+  "language": "Bahasa",
+  "logout": "Keluar"
+}
