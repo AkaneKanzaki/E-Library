@@ -72,7 +72,7 @@ Here are the application interfaces based on your screenshots:
 
 ## Contributing
 
-Contributions are always welcome! If you would like to contribute, please fork the repository and submit a pull request. Read more in our [Contributing Guidelines](CONTRIBUTING.md).
+Contributions are always welcome! If you would like to contribute, report bugs, or request features, please visit our [Issues Page](https://github.com/AkaneKanzaki/E-Library/issues).
 
 ## License
 
