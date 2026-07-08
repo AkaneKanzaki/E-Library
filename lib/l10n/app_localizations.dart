@@ -131,13 +131,13 @@ abstract class AppLocalizations {
   /// No description provided for @registerTitle.
   ///
   /// In id, this message translates to:
-  /// **'Register'**
+  /// **'Daftar'**
   String get registerTitle;
 
   /// No description provided for @registerButton.
   ///
   /// In id, this message translates to:
-  /// **'Register'**
+  /// **'Daftar'**
   String get registerButton;
 
   /// No description provided for @dashboardTitle.
@@ -149,7 +149,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileTitle.
   ///
   /// In id, this message translates to:
-  /// **'Profile'**
+  /// **'Profil'**
   String get profileTitle;
 
   /// No description provided for @aboutTitle.
@@ -173,19 +173,19 @@ abstract class AppLocalizations {
   /// No description provided for @returnButton.
   ///
   /// In id, this message translates to:
-  /// **'Return Book'**
+  /// **'Kembalikan Buku'**
   String get returnButton;
 
   /// No description provided for @borrowHistory.
   ///
   /// In id, this message translates to:
-  /// **'Borrowing History'**
+  /// **'Riwayat Peminjaman'**
   String get borrowHistory;
 
   /// No description provided for @darkMode.
   ///
   /// In id, this message translates to:
-  /// **'Dark Mode'**
+  /// **'Mode Gelap'**
   String get darkMode;
 
   /// No description provided for @language.
@@ -197,7 +197,7 @@ abstract class AppLocalizations {
   /// No description provided for @logout.
   ///
   /// In id, this message translates to:
-  /// **'Logout'**
+  /// **'Keluar'**
   String get logout;
 }
 

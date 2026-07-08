@@ -24,16 +24,16 @@ class AppLocalizationsId extends AppLocalizations {
   String get loginFailedMsg => 'Login gagal. Silakan coba lagi.';
 
   @override
-  String get registerTitle => 'Register';
+  String get registerTitle => 'Daftar';
 
   @override
-  String get registerButton => 'Register';
+  String get registerButton => 'Daftar';
 
   @override
   String get dashboardTitle => 'Dashboard';
 
   @override
-  String get profileTitle => 'Profile';
+  String get profileTitle => 'Profil';
 
   @override
   String get aboutTitle => 'Tentang Aplikasi';
@@ -45,17 +45,17 @@ class AppLocalizationsId extends AppLocalizations {
   String get borrowButton => 'Pinjam Buku';
 
   @override
-  String get returnButton => 'Return Book';
+  String get returnButton => 'Kembalikan Buku';
 
   @override
-  String get borrowHistory => 'Borrowing History';
+  String get borrowHistory => 'Riwayat Peminjaman';
 
   @override
-  String get darkMode => 'Dark Mode';
+  String get darkMode => 'Mode Gelap';
 
   @override
   String get language => 'Bahasa';
 
   @override
-  String get logout => 'Logout';
+  String get logout => 'Keluar';
 }

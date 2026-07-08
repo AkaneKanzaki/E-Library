@@ -32,7 +32,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Book Details'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -41,21 +42,21 @@ class _BookDetailPageState extends State<BookDetailPage> {
             // Header dengan gambar cover
             Container(
               width: double.infinity,
-              color: Colors.blue.shade50,
+              color: Theme.of(context).colorScheme.surface,
               child: Column(
                 children: [
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   Container(
-                    width: 200,
-                    height: 300,
+                    width: 180,
+                    height: 270,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
+                          color: Colors.black.withValues(alpha: 0.08),
+                          spreadRadius: 0,
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
                         ),
                       ],
                     ),
