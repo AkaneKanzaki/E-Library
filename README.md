@@ -72,8 +72,8 @@ Here are the application interfaces based on your screenshots:
 
 ## Contributing
 
-Contributions are always welcome! If you would like to contribute, report bugs, or request features, please visit our [Issues Page](https://github.com/AkaneKanzaki/E-Library/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/AkaneKanzaki/E-Library/issues) if you want to contribute.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
