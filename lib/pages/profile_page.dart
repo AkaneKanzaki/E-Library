@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/peminjaman_provider.dart';
+import '../providers/theme_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -53,6 +54,26 @@ class ProfilePage extends StatelessWidget {
                       value: user.email,
                     ),
                   ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            
+            // Pengaturan
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Consumer<ThemeProvider>(
+                  builder: (context, themeProvider, child) {
+                    return SwitchListTile(
+                      title: const Text('Mode Gelap'),
+                      secondary: const Icon(Icons.dark_mode),
+                      value: themeProvider.isDarkMode,
+                      onChanged: (bool value) {
+                        themeProvider.toggleTheme(value);
+                      },
+                    );
+                  },
                 ),
               ),
             ),

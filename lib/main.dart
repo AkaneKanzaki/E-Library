@@ -7,6 +7,7 @@ import 'package:e_library1/pages/about_page.dart';
 import 'package:e_library1/providers/book_provider.dart';
 import 'package:e_library1/providers/peminjaman_provider.dart';
 import 'package:e_library1/providers/favorite_provider.dart';
+import 'package:e_library1/providers/theme_provider.dart';
 
 import 'package:e_library1/pages/dashboard_page.dart';
 
@@ -17,6 +18,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => BookProvider()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(
           create: (context) => PeminjamanProvider(
             Provider.of<BookProvider>(context, listen: false),
@@ -33,27 +35,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'E-Library Mobile',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: Consumer<AuthProvider>(
-        builder: (context, auth, child) {
-          if (!auth.isInitialized) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          if (auth.isAuthenticated) {
-            return const DashboardPage();
-          }
-          return const HomePage();
-        },
-      ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          title: 'E-Library Mobile',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.dark,
+            ),
+          ),
+          themeMode: themeProvider.themeMode,
+          home: Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              if (!auth.isInitialized) {
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              if (auth.isAuthenticated) {
+                return const DashboardPage();
+              }
+              return const HomePage();
+            },
+          ),
+        );
+      },
     );
   }
 }

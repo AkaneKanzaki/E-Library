@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
@@ -14,6 +15,7 @@ class SearchBookPage extends StatefulWidget {
 class _SearchBookPageState extends State<SearchBookPage> {
   final _searchController = TextEditingController();
   String _searchQuery = '';
+  Timer? _debounce;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,11 @@ class _SearchBookPageState extends State<SearchBookPage> {
                 ),
               ),
               onChanged: (value) {
-                setState(() {
-                  _searchQuery = value;
+                if (_debounce?.isActive ?? false) _debounce!.cancel();
+                _debounce = Timer(const Duration(milliseconds: 500), () {
+                  setState(() {
+                    _searchQuery = value;
+                  });
                 });
               },
             ),
@@ -152,6 +157,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
