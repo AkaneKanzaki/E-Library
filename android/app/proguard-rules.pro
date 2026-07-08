@@ -8,3 +8,7 @@
 
 # Dart
 -keep class dalvik.** { *; }
+
+# Fix R8 Missing Classes Error for Flutter Play Store Deferred Components
+-dontwarn com.google.android.play.core.**
+-dontwarn io.flutter.embedding.engine.deferredcomponents.**
