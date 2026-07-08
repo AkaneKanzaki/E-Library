@@ -130,7 +130,7 @@ class DashboardPage extends StatelessWidget {
                     icon: Icons.library_books,
                     color: Colors.blue,
                     onTap: () {
-                      // TODO: Buat halaman Manajemen Buku di Phase berikutnya
+                      // Halaman Manajemen Buku di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Manajemen Buku: Coming Soon')),
@@ -143,7 +143,7 @@ class DashboardPage extends StatelessWidget {
                     icon: Icons.people,
                     color: Colors.green,
                     onTap: () {
-                      // TODO: Buat halaman Daftar Anggota di Phase berikutnya
+                      // Halaman Daftar Anggota di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Daftar Anggota: Coming Soon')),
@@ -156,7 +156,7 @@ class DashboardPage extends StatelessWidget {
                     icon: Icons.check_circle_outline,
                     color: Colors.orange,
                     onTap: () {
-                      // TODO: Buat halaman Approval di Phase berikutnya
+                      // Halaman Approval di Phase berikutnya
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Approval Peminjaman: Coming Soon')),

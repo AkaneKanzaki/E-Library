@@ -129,7 +129,7 @@ class LaporanPage extends StatelessWidget {
                       child: ListTile(
                         title: Text(book?.judul ?? 'Buku tidak ditemukan'),
                         subtitle: Text('Peminjam: ${p.userId}'),
-                        trailing: Text(_formatDate(p.tanggalKembali)),
+                        trailing: Text(_formatDate(p.batasWaktu)),
                       ),
                     );
                   }).toList(),

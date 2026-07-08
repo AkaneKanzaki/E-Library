@@ -19,14 +19,16 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createDB,
+      onUpgrade: _upgradeDB,
     );
   }
 
   Future _createDB(Database db, int version) async {
     const idType = 'TEXT PRIMARY KEY';
     const textType = 'TEXT NOT NULL';
+    const textNullType = 'TEXT';
     const boolType = 'INTEGER NOT NULL';
     const intType = 'INTEGER NOT NULL';
 
@@ -52,7 +54,8 @@ CREATE TABLE peminjaman (
   userId $textType,
   bookId $textType,
   tanggalPinjam $textType,
-  tanggalKembali $textType,
+  tanggalKembali $textNullType,
+  batasWaktu $textType,
   status $textType
 )
 ''');
@@ -63,6 +66,12 @@ CREATE TABLE favorites (
   bookId $textType
 )
 ''');
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE peminjaman ADD COLUMN batasWaktu TEXT');
+    }
   }
 
   Future<void> close() async {

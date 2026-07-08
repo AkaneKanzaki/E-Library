@@ -92,7 +92,9 @@ class DaftarPeminjamanPage extends StatelessWidget {
             Text('Penulis: ${book.penulis}'),
             const SizedBox(height: 8),
             Text('Tanggal Pinjam: ${_formatDate(peminjaman.tanggalPinjam)}'),
-            Text('Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali)}'),
+            Text('Batas Waktu: ${_formatDate(peminjaman.batasWaktu)}'),
+            if (!isActive && peminjaman.tanggalKembali != null)
+              Text('Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali!)}'),
             if (isActive) ...[
               const SizedBox(height: 16),
               SizedBox(

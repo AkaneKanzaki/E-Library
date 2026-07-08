@@ -34,6 +34,9 @@ class _RiwayatPageState extends State<RiwayatPage> {
             );
           }
 
+          // Urutkan dari yang terbaru dipinjam
+          riwayat.sort((a, b) => b.tanggalPinjam.compareTo(a.tanggalPinjam));
+
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: riwayat.length,
@@ -52,6 +55,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
 
   Widget _buildRiwayatCard(Peminjaman peminjaman, Book book) {
     final bool isActive = peminjaman.status == 'dipinjam';
+    final int denda = peminjaman.hitungDenda();
     
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -95,7 +99,34 @@ class _RiwayatPageState extends State<RiwayatPage> {
             Text('Penulis: ${book.penulis}'),
             const SizedBox(height: 8),
             Text('Tanggal Pinjam: ${_formatDate(peminjaman.tanggalPinjam)}'),
-            Text('Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali)}'),
+            Text('Batas Waktu: ${_formatDate(peminjaman.batasWaktu)}'),
+            if (!isActive && peminjaman.tanggalKembali != null)
+              Text('Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali!)}'),
+            
+            if (denda > 0) ...[
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  border: Border.all(color: Colors.red.shade200),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.warning_amber_rounded, color: Colors.red, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Denda Keterlambatan: Rp $denda',
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ],
         ),
       ),
@@ -103,6 +134,6 @@ class _RiwayatPageState extends State<RiwayatPage> {
   }
 
   String _formatDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
+    return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
   }
-} 
+}

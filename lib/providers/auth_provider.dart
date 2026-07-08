@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 
@@ -48,7 +49,7 @@ class AuthProvider extends ChangeNotifier {
         }
       }
     } catch (e) {
-      print('Error reading shared preferences: $e');
+      debugPrint('Error reading shared preferences: $e');
     } finally {
       _isInitialized = true;
       notifyListeners();
@@ -78,7 +79,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      print('Login failed: $e');
+      debugPrint('Login error: $e');
       _currentUser = null;
       _isAuthenticated = false;
       notifyListeners();
@@ -94,7 +95,7 @@ class AuthProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('email');
     } catch (e) {
-      print('Error removing session: $e');
+      debugPrint('Error removing session: $e');
     }
     
     notifyListeners();

@@ -85,16 +85,17 @@ class _PinjamBukuPageState extends State<PinjamBukuPage> {
               'Tanggal Pinjam: ${_formatDate(peminjaman.tanggalPinjam)}',
             ),
             Text(
-              'Tanggal Kembali: ${_formatDate(peminjaman.tanggalKembali)}',
+              'Batas Waktu: ${_formatDate(peminjaman.batasWaktu)}',
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
                 final success = await peminjamanProvider.kembalikanBuku(peminjaman.id);
-                if (!mounted) return;
+                if (!context.mounted) return;
                 
                 if (success) {
                   await peminjamanProvider.refreshPeminjaman();
+                  if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Buku berhasil dikembalikan')),
                   );

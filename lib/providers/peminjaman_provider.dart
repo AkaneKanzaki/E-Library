@@ -44,7 +44,8 @@ class PeminjamanProvider extends ChangeNotifier {
         userId: userId,
         bookId: bookId,
         tanggalPinjam: DateTime.now(),
-        tanggalKembali: DateTime.now().add(const Duration(days: 7)),
+        tanggalKembali: null,
+        batasWaktu: DateTime.now().add(const Duration(days: 7)),
         status: 'dipinjam',
       );
 
@@ -74,6 +75,7 @@ class PeminjamanProvider extends ChangeNotifier {
         bookId: peminjaman.bookId,
         tanggalPinjam: peminjaman.tanggalPinjam,
         tanggalKembali: DateTime.now(),
+        batasWaktu: peminjaman.batasWaktu,
         status: 'dikembalikan',
       );
 
