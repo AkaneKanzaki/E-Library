@@ -2,8 +2,6 @@
 
 An offline-first Digital Library mobile application built using the **Flutter** framework and **SQLite**. This application is designed to provide a comprehensive library management ecosystem ranging from borrowing books, reading PDF books, to automated fine management based on a Role-Based Access Control (RBAC) system.
 
-**Created by**: [@AkaneKanzaki (Muhammad Rizky Aulia)](https://github.com/AkaneKanzaki)
-
 ## Key Features
 
 - **Role-Based Authentication**: Supports 3 access levels:
