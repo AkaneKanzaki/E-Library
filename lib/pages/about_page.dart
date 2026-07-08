@@ -7,66 +7,101 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tentang Aplikasi'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('About App'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'E-Library Mobile',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            const SizedBox(height: 20),
+            Icon(
+              Icons.auto_stories_rounded,
+              size: 80,
+              color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Versi 1.0.0',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+            Text(
+              'E-Library Mobile',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Version 1.0.0',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+            ),
+            const SizedBox(height: 40),
+            Text(
+              'A digital library application that makes it easy for you to:',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'Aplikasi perpustakaan digital yang memudahkan Anda untuk:',
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            _buildFeatureItem('Membaca dan meminjam buku digital'),
-            _buildFeatureItem('Akses katalog buku lengkap'),
-            _buildFeatureItem('Manajemen peminjaman buku'),
-            _buildFeatureItem('Notifikasi pengembalian'),
-            const Spacer(),
-            const Center(
-              child: Text(
-                '© 2024 E-Library Mobile',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Theme.of(context).dividerColor.withValues(alpha: 0.1)),
+              ),
+              child: Column(
+                children: [
+                  _buildFeatureItem(context, 'Read and borrow digital books'),
+                  _buildFeatureItem(context, 'Access complete book catalog'),
+                  _buildFeatureItem(context, 'Borrowing management'),
+                  _buildFeatureItem(context, 'Return notifications', isLast: true),
+                ],
               ),
             ),
+            const Spacer(),
+            Text(
+              '© 2024 E-Library Mobile',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildFeatureItem(String text) {
+  Widget _buildFeatureItem(BuildContext context, String text, {bool isLast = false}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.only(bottom: isLast ? 0 : 16.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle, color: Colors.green),
-          const SizedBox(width: 8),
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.check,
+              size: 16,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 16),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
             ),
           ),
         ],
