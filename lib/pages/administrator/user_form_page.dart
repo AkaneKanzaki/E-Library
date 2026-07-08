@@ -3,28 +3,28 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/user.dart';
 
-class FormPenggunaPage extends StatefulWidget {
+class UserFormPage extends StatefulWidget {
   final User? user;
 
-  const FormPenggunaPage({super.key, this.user});
+  const UserFormPage({super.key, this.user});
 
   @override
-  State<FormPenggunaPage> createState() => _FormPenggunaPageState();
+  State<UserFormPage> createState() => _UserFormPageState();
 }
 
-class _FormPenggunaPageState extends State<FormPenggunaPage> {
+class _UserFormPageState extends State<UserFormPage> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _emailController;
-  late TextEditingController _namaController;
+  late TextEditingController _nameController;
   late TextEditingController _passwordController;
-  String _selectedRole = 'siswa';
+  String _selectedRole = 'student';
 
   @override
   void initState() {
     super.initState();
     final user = widget.user;
     _emailController = TextEditingController(text: user?.email);
-    _namaController = TextEditingController(text: user?.nama);
+    _nameController = TextEditingController(text: user?.name);
     _passwordController = TextEditingController();
     if (user != null) {
       _selectedRole = user.role;
@@ -34,7 +34,7 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
   @override
   void dispose() {
     _emailController.dispose();
-    _namaController.dispose();
+    _nameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -43,7 +43,7 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.user == null ? 'Tambah Pengguna' : 'Edit Pengguna'),
+        title: Text(widget.user == null ? 'Add User' : 'Edit User'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -68,7 +68,7 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _namaController,
+                controller: _nameController,
                 decoration: const InputDecoration(labelText: 'Nama'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -99,7 +99,7 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
                 initialValue: _selectedRole,
                 decoration: const InputDecoration(labelText: 'Role'),
                 items: const [
-                  DropdownMenuItem(value: 'siswa', child: Text('Siswa')),
+                  DropdownMenuItem(value: 'student', child: Text('Student')),
                   DropdownMenuItem(
                       value: 'librarian', child: Text('Librarian')),
                   DropdownMenuItem(
@@ -115,7 +115,7 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
               ElevatedButton(
                 onPressed: _submitForm,
                 child: Text(widget.user == null
-                    ? 'Tambah Pengguna'
+                    ? 'Add User'
                     : 'Simpan Perubahan'),
               ),
             ],
@@ -130,16 +130,16 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
       final user = User(
         email: _emailController.text,
         password: widget.user?.password ?? _passwordController.text,
-        nama: _namaController.text,
+        name: _nameController.text,
         role: _selectedRole,
       );
 
       if (widget.user == null) {
-        // Tambah pengguna baru
+        // Add new user
         Provider.of<AuthProvider>(context, listen: false)
             .addUser(user, _passwordController.text);
       } else {
-        // Update pengguna yang ada
+        // Update existing user
         Provider.of<AuthProvider>(context, listen: false).updateUser(user);
       }
 
@@ -147,8 +147,8 @@ class _FormPenggunaPageState extends State<FormPenggunaPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(widget.user == null
-              ? 'Pengguna berhasil ditambahkan'
-              : 'Pengguna berhasil diperbarui'),
+              ? 'User successfully added'
+              : 'User successfully updated'),
         ),
       );
     }

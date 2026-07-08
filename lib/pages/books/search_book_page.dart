@@ -107,7 +107,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      book.judul,
+                      book.title,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      book.penulis,
+                      book.author,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey.shade600,
@@ -123,7 +123,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Tahun: ${book.tahunTerbit}',
+                      'Year: ${book.publishYear}',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey.shade600,
@@ -136,11 +136,11 @@ class _SearchBookPageState extends State<SearchBookPage> {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: book.tersedia ? Colors.green : Colors.red,
+                        color: book.isAvailable ? Colors.green : Colors.red,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        book.tersedia ? 'Available' : 'Dipinjam',
+                        book.isAvailable ? 'Available' : 'Borrowed',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,

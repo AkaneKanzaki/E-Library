@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/book_provider.dart';
-import '../../providers/peminjaman_provider.dart';
+import '../../providers/borrowing_provider.dart';
 import '../../providers/auth_provider.dart';
 
-class LaporanPage extends StatelessWidget {
-  const LaporanPage({super.key});
+class ReportPage extends StatelessWidget {
+  const ReportPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,73 +19,73 @@ class LaporanPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Statistik Umum
+            // General Statistics
             const Text(
-              'Statistik Umum',
+              'General Statistics',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 16),
-            Consumer3<BookProvider, PeminjamanProvider, AuthProvider>(
-              builder: (context, bookProvider, peminjamanProvider, authProvider, child) {
+            Consumer3<BookProvider, BorrowingProvider, AuthProvider>(
+              builder: (context, bookProvider, borrowingProvider, authProvider, child) {
                 final totalBuku = bookProvider.books.length;
-                final bukuTersedia = bookProvider.books.where((book) => book.tersedia).length;
-                final bukuDipinjam = totalBuku - bukuTersedia;
-                final totalPeminjaman = peminjamanProvider.peminjaman.length;
-                final peminjamanAktif = peminjamanProvider.peminjaman
-                    .where((p) => p.status == 'dipinjam').length;
+                final availableBooks = bookProvider.books.where((book) => book.isAvailable).length;
+                final borrowedBooks = totalBuku - availableBooks;
+                final totalBorrowings = borrowingProvider.borrowings.length;
+                final activeBorrowings = borrowingProvider.borrowings
+                    .where((p) => p.status == 'borrowed').length;
                 final totalPengguna = authProvider.users.length;
-                final totalSiswa = authProvider.users.where((u) => u.role == 'siswa').length;
+                final totalStudents = authProvider.users.where((u) => u.role == 'student').length;
 
                 return Column(
                   children: [
                     _buildStatCard(
-                      'Total Buku',
+                      'Total Books',
                       totalBuku.toString(),
                       Icons.book,
                       Colors.blue,
                     ),
                     const SizedBox(height: 8),
                     _buildStatCard(
-                      'Buku Tersedia',
-                      bukuTersedia.toString(),
+                      'Available Books',
+                      availableBooks.toString(),
                       Icons.check_circle,
                       Colors.green,
                     ),
                     const SizedBox(height: 8),
                     _buildStatCard(
                       'Borrowed Books',
-                      bukuDipinjam.toString(),
+                      borrowedBooks.toString(),
                       Icons.bookmark,
                       Colors.orange,
                     ),
                     const SizedBox(height: 16),
                     _buildStatCard(
-                      'Total Peminjaman',
-                      totalPeminjaman.toString(),
+                      'Total Borrowing',
+                      totalBorrowings.toString(),
                       Icons.history,
                       Colors.purple,
                     ),
                     const SizedBox(height: 8),
                     _buildStatCard(
-                      'Peminjaman Aktif',
-                      peminjamanAktif.toString(),
+                      'Active Borrowings',
+                      activeBorrowings.toString(),
                       Icons.access_time,
                       Colors.red,
                     ),
                     const SizedBox(height: 16),
                     _buildStatCard(
-                      'Total Pengguna',
+                      'Total Users',
                       totalPengguna.toString(),
                       Icons.people,
                       Colors.indigo,
                     ),
                     const SizedBox(height: 8),
                     _buildStatCard(
-                      'Total Siswa',
-                      totalSiswa.toString(),
+                      'Total Students',
+                      totalStudents.toString(),
                       Icons.school,
                       Colors.teal,
                     ),
@@ -96,23 +96,23 @@ class LaporanPage extends StatelessWidget {
             
             const SizedBox(height: 32),
             
-            // Peminjaman Terbaru
+            // Recent Borrowings
             const Text(
-              'Peminjaman Terbaru',
+              'Borrowing Terbaru',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 16),
-            Consumer2<PeminjamanProvider, BookProvider>(
-              builder: (context, peminjamanProvider, bookProvider, child) {
-                final peminjaman = peminjamanProvider.peminjaman
-                    .where((p) => p.status == 'dipinjam')
+            Consumer2<BorrowingProvider, BookProvider>(
+              builder: (context, borrowingProvider, bookProvider, child) {
+                final borrowings = borrowingProvider.borrowings
+                    .where((p) => p.status == 'borrowed')
                     .take(5)
                     .toList();
 
-                if (peminjaman.isEmpty) {
+                if (borrowings.isEmpty) {
                   return const Card(
                     child: Padding(
                       padding: EdgeInsets.all(16),
@@ -122,14 +122,14 @@ class LaporanPage extends StatelessWidget {
                 }
 
                 return Column(
-                  children: peminjaman.map((p) {
+                  children: borrowings.map((p) {
                     final book = bookProvider.getBookById(p.bookId);
                     return Card(
                       margin: const EdgeInsets.only(bottom: 8),
                       child: ListTile(
-                        title: Text(book?.judul ?? 'Book not found'),
+                        title: Text(book?.title ?? 'Book not found'),
                         subtitle: Text('Borrower: ${p.userId}'),
-                        trailing: Text(_formatDate(p.batasWaktu)),
+                        trailing: Text(_formatDate(p.dueDate)),
                       ),
                     );
                   }).toList(),

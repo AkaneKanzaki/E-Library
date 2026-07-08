@@ -35,27 +35,27 @@ class DatabaseHelper {
     await db.execute('''
 CREATE TABLE books (
   id $idType,
-  judul $textType,
-  penulis $textType,
-  penerbit $textType,
-  tahunTerbit $textType,
-  deskripsi $textType,
+  title $textType,
+  author $textType,
+  publisher $textType,
+  publishYear $textType,
+  description $textType,
   coverUrl $textType,
-  tersedia $boolType,
-  kategori $textType,
+  isAvailable $boolType,
+  category $textType,
   bookPath $textType,
-  jumlahHalaman $intType
+  pageCount $intType
 )
 ''');
 
     await db.execute('''
-CREATE TABLE peminjaman (
+CREATE TABLE borrowings (
   id $idType,
   userId $textType,
   bookId $textType,
-  tanggalPinjam $textType,
-  tanggalKembali $textNullType,
-  batasWaktu $textType,
+  borrowDate $textType,
+  returnDate $textNullType,
+  dueDate $textType,
   status $textType
 )
 ''');
@@ -70,7 +70,7 @@ CREATE TABLE favorites (
 
   Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
-      await db.execute('ALTER TABLE peminjaman ADD COLUMN batasWaktu TEXT');
+      await db.execute('ALTER TABLE borrowings ADD COLUMN dueDate TEXT');
     }
   }
 

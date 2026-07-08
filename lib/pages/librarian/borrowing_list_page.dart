@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/peminjaman_provider.dart';
+import '../../providers/borrowing_provider.dart';
 import '../../providers/book_provider.dart';
-import '../../models/peminjaman.dart';
+import '../../models/borrowing.dart';
 import '../../models/book.dart';
 
-class DaftarPeminjamanPage extends StatelessWidget {
-  const DaftarPeminjamanPage({super.key});
+class BorrowingListPage extends StatelessWidget {
+  const BorrowingListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,11 @@ class DaftarPeminjamanPage extends StatelessWidget {
         title: const Text('Borrowing List'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Consumer2<PeminjamanProvider, BookProvider>(
-        builder: (context, peminjamanProvider, bookProvider, child) {
-          final peminjaman = peminjamanProvider.peminjaman;
+      body: Consumer2<BorrowingProvider, BookProvider>(
+        builder: (context, borrowingProvider, bookProvider, child) {
+          final borrowings = borrowingProvider.borrowings;
 
-          if (peminjaman.isEmpty) {
+          if (borrowings.isEmpty) {
             return const Center(
               child: Text('No borrowings yet'),
             );
@@ -27,13 +27,14 @@ class DaftarPeminjamanPage extends StatelessWidget {
 
           return ListView.builder(
             padding: const EdgeInsets.all(16),
-            itemCount: peminjaman.length,
+            itemCount: borrowings.length,
             itemBuilder: (context, index) {
-              final pinjam = peminjaman[index];
-              final book = bookProvider.getBookById(pinjam.bookId);
+              final borrowItem = borrowings[index];
+              final book = bookProvider.getBookById(borrowItem.bookId);
               if (book == null) return const SizedBox();
 
-              return _buildPeminjamanCard(context, pinjam, book, peminjamanProvider);
+              return _buildBorrowingCard(
+                  context, borrowItem, book, borrowingProvider);
             },
           );
         },
@@ -41,13 +42,13 @@ class DaftarPeminjamanPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPeminjamanCard(
+  Widget _buildBorrowingCard(
     BuildContext context,
-    Peminjaman peminjaman,
+    Borrowing borrowings,
     Book book,
-    PeminjamanProvider peminjamanProvider,
+    BorrowingProvider borrowingProvider,
   ) {
-    final bool isActive = peminjaman.status == 'dipinjam';
+    final bool isActive = borrowings.status == 'borrowed';
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -61,7 +62,7 @@ class DaftarPeminjamanPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    book.judul,
+                    book.title,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -78,7 +79,7 @@ class DaftarPeminjamanPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    isActive ? 'Dipinjam' : 'Dikembalikan',
+                    isActive ? 'Borrowed' : 'Returned',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -88,24 +89,26 @@ class DaftarPeminjamanPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text('Borrower: ${peminjaman.userId}'),
-            Text('Author: ${book.penulis}'),
+            Text('Borrower: ${borrowings.userId}'),
+            Text('Author: ${book.author}'),
             const SizedBox(height: 8),
-            Text('Borrow Date: ${_formatDate(peminjaman.tanggalPinjam)}'),
-            Text('Due Date: ${_formatDate(peminjaman.batasWaktu)}'),
-            if (!isActive && peminjaman.tanggalKembali != null)
-              Text('Return Date: ${_formatDate(peminjaman.tanggalKembali!)}'),
+            Text('Borrow Date: ${_formatDate(borrowings.borrowDate)}'),
+            Text('Due Date: ${_formatDate(borrowings.dueDate)}'),
+            if (!isActive && borrowings.returnDate != null)
+              Text('Return Date: ${_formatDate(borrowings.returnDate!)}'),
             if (isActive) ...[
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final success = await peminjamanProvider.kembalikanBuku(peminjaman.id);
+                    final success =
+                        await borrowingProvider.returnBook(borrowings.id);
                     if (success) {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Book successfully returned')),
+                          const SnackBar(
+                              content: Text('Book successfully returned')),
                         );
                       }
                     }
@@ -123,4 +126,4 @@ class DaftarPeminjamanPage extends StatelessWidget {
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }
-} 
+}

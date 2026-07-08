@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/book_provider.dart';
-import '../../pages/librarian/form_buku_page.dart';
+import '../../pages/librarian/book_form_page.dart';
 
-class KelolaBukuPage extends StatelessWidget {
-  const KelolaBukuPage({super.key});
+class ManageBooksPage extends StatelessWidget {
+  const ManageBooksPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class KelolaBukuPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FormBukuPage()),
+                MaterialPageRoute(builder: (context) => const BookFormPage()),
               );
             },
           ),
@@ -36,15 +36,15 @@ class KelolaBukuPage extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.only(bottom: 16),
                 child: ListTile(
-                  title: Text(book.judul),
+                  title: Text(book.title),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(book.penulis),
+                      Text(book.author),
                       Text(
-                        book.tersedia ? 'Available' : 'Dipinjam',
+                        book.isAvailable ? 'Available' : 'Borrowed',
                         style: TextStyle(
-                          color: book.tersedia ? Colors.green : Colors.red,
+                          color: book.isAvailable ? Colors.green : Colors.red,
                         ),
                       ),
                     ],
@@ -58,7 +58,7 @@ class KelolaBukuPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FormBukuPage(book: book),
+                              builder: (context) => BookFormPage(book: book),
                             ),
                           );
                         },
@@ -71,7 +71,7 @@ class KelolaBukuPage extends StatelessWidget {
                             builder: (context) => AlertDialog(
                               title: const Text('Delete Book'),
                               content: Text(
-                                  'Apakah Anda yakin ingin menghapus buku "${book.judul}"?'),
+                                  'Are you sure you want to delete the book "${book.title}"?'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),

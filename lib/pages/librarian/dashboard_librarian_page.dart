@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import './kelola_buku_page.dart';
-import './daftar_peminjaman_page.dart';
+import './manage_books_page.dart';
+import './borrowing_list_page.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
 
 class DashboardLibrarianPage extends StatelessWidget {
@@ -45,7 +45,7 @@ class DashboardLibrarianPage extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  '${user.nama} (${user.role})',
+                  '${user.name} (${user.role})',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
@@ -55,7 +55,7 @@ class DashboardLibrarianPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
 
-            // Menu Utama
+            // Main Menu
             Text(
               AppLocalizations.of(context)!.mainMenu,
               style: TextStyle(
@@ -81,7 +81,7 @@ class DashboardLibrarianPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const KelolaBukuPage(),
+                        builder: (context) => const ManageBooksPage(),
                       ),
                     );
                   },
@@ -95,7 +95,7 @@ class DashboardLibrarianPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const DaftarPeminjamanPage(),
+                        builder: (context) => const BorrowingListPage(),
                       ),
                     );
                   },

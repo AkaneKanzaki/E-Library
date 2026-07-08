@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import '../../providers/peminjaman_provider.dart';
+import '../../providers/borrowing_provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../providers/locale_provider.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
               radius: 50,
               backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: Text(
-                user.nama[0].toUpperCase(),
+                user.name[0].toUpperCase(),
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             
-            // Info Pengguna
+            // User Info
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -50,7 +50,7 @@ class ProfilePage extends StatelessWidget {
                       context,
                       icon: Icons.person,
                       label: 'Nama',
-                      value: user.nama,
+                      value: user.name,
                     ),
                     const Divider(),
                     _buildInfoRow(
@@ -65,7 +65,7 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             
-            // Pengaturan
+            // Settings
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -103,11 +103,11 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Statistik Peminjaman
-            Consumer<PeminjamanProvider>(
-              builder: (context, peminjamanProvider, child) {
-                final jumlahDipinjam = peminjamanProvider.getJumlahBukuDipinjam(user.email);
-                final jumlahRiwayat = peminjamanProvider.getJumlahRiwayatPeminjaman(user.email);
+            // Borrowing Statistics
+            Consumer<BorrowingProvider>(
+              builder: (context, borrowingProvider, child) {
+                final borrowedCount = borrowingProvider.getBorrowedBooksCount(user.email);
+                final historyCount = borrowingProvider.getBorrowingHistoryCount(user.email);
 
                 return Card(
                   child: Padding(
@@ -127,14 +127,14 @@ class ProfilePage extends StatelessWidget {
                           context,
                           icon: Icons.book,
                           label: AppLocalizations.of(context)!.borrowedBooks,
-                          value: jumlahDipinjam.toString(),
+                          value: borrowedCount.toString(),
                         ),
                         const Divider(),
                         _buildInfoRow(
                           context,
                           icon: Icons.history,
                           label: AppLocalizations.of(context)!.totalBorrowing,
-                          value: jumlahRiwayat.toString(),
+                          value: historyCount.toString(),
                         ),
                       ],
                     ),
@@ -144,7 +144,7 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Tombol Logout
+            // Logout button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(

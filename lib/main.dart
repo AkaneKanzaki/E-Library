@@ -6,7 +6,7 @@ import 'package:elibrary/pages/auth/login_page.dart';
 import 'package:elibrary/pages/auth/register_page.dart';
 import 'package:elibrary/pages/student/about_page.dart';
 import 'package:elibrary/providers/book_provider.dart';
-import 'package:elibrary/providers/peminjaman_provider.dart';
+import 'package:elibrary/providers/borrowing_provider.dart';
 import 'package:elibrary/providers/favorite_provider.dart';
 import 'package:elibrary/providers/theme_provider.dart';
 import 'package:elibrary/providers/locale_provider.dart';
@@ -27,7 +27,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => LocaleProvider()),
         ChangeNotifierProvider(
-          create: (context) => PeminjamanProvider(
+          create: (context) => BorrowingProvider(
             Provider.of<BookProvider>(context, listen: false),
           ),
         ),

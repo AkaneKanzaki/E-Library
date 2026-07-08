@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/book.dart';
-import '../../providers/peminjaman_provider.dart';
+import '../../providers/borrowing_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/favorite_provider.dart';
 import './read_book_page.dart';
@@ -20,14 +20,14 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final peminjamanProvider = Provider.of<PeminjamanProvider>(context);
+    final borrowingProvider = Provider.of<BorrowingProvider>(context);
     final user = authProvider.currentUser;
 
-    // Cek apakah buku sedang dipinjam oleh user ini
+    // Check if the book is currently borrowed by this user
     final bool isBeingBorrowedByUser = user != null &&
-        peminjamanProvider
-            .getPeminjamanByUserId(user.email)
-            .where((p) => p.bookId == widget.book.id && p.status == 'dipinjam')
+        borrowingProvider
+            .getBorrowingsByUserId(user.email)
+            .where((p) => p.bookId == widget.book.id && p.status == 'borrowed')
             .isNotEmpty;
 
     return Scaffold(
@@ -40,7 +40,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header dengan gambar cover
+            // Header with cover image
             Container(
               width: double.infinity,
               color: Theme.of(context).colorScheme.surface,
@@ -81,19 +81,19 @@ class _BookDetailPageState extends State<BookDetailPage> {
               ),
             ),
 
-            // Informasi buku
+            // Book information
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Judul dan Status
+                  // Title and Status
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Text(
-                          widget.book.judul,
+                          widget.book.title,
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -107,11 +107,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         ),
                         decoration: BoxDecoration(
                           color:
-                              widget.book.tersedia ? Colors.green : Colors.red,
+                              widget.book.isAvailable ? Colors.green : Colors.red,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          widget.book.tersedia ? 'Available' : AppLocalizations.of(context)!.borrowed,
+                          widget.book.isAvailable ? 'Available' : AppLocalizations.of(context)!.borrowed,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -122,9 +122,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ),
                   const SizedBox(height: 8),
 
-                  // Penulis
+                  // Author
                   Text(
-                    '${AppLocalizations.of(context)!.byAuthor}${widget.book.penulis}',
+                    '${AppLocalizations.of(context)!.byAuthor}${widget.book.author}',
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -132,7 +132,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ),
                   const SizedBox(height: 24),
 
-                  // Info detail dalam card
+                  // Detailed info in card
                   Card(
                     elevation: 2,
                     child: Padding(
@@ -140,22 +140,22 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildInfoRow('Publisher', widget.book.penerbit, context),
+                          _buildInfoRow('Publisher', widget.book.publisher, context),
                           const Divider(),
                           _buildInfoRow(
-                              AppLocalizations.of(context)!.publishedYear, widget.book.tahunTerbit, context),
+                              AppLocalizations.of(context)!.publishedYear, widget.book.publishYear, context),
                           const Divider(),
-                          _buildInfoRow(AppLocalizations.of(context)!.category, widget.book.kategori, context),
+                          _buildInfoRow(AppLocalizations.of(context)!.category, widget.book.category, context),
                           const Divider(),
                           _buildInfoRow(AppLocalizations.of(context)!.totalPages,
-                              '${widget.book.jumlahHalaman} ${AppLocalizations.of(context)!.pages}', context),
+                              '${widget.book.pageCount} ${AppLocalizations.of(context)!.pages}', context),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 24),
 
-                  // Deskripsi
+                  // Description
                   Text(
                     'Description',
                     style: TextStyle(
@@ -172,7 +172,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      widget.book.deskripsi,
+                      widget.book.description,
                       style: TextStyle(
                         fontSize: 16,
                         height: 1.5,
@@ -182,7 +182,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ),
                   const SizedBox(height: 24),
 
-                  // Tombol aksi
+                  // Action buttons
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Row(
@@ -207,12 +207,12 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                   ),
                                 )
                               : ElevatedButton.icon(
-                                  onPressed: widget.book.tersedia
+                                  onPressed: widget.book.isAvailable
                                       ? () async {
                                           if (user != null) {
                                             final success =
-                                                await peminjamanProvider
-                                                    .pinjamBuku(
+                                                await borrowingProvider
+                                                    .borrowBook(
                                               user.email,
                                               widget.book.id,
                                             );
@@ -231,7 +231,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                         }
                                       : null,
                                   icon: const Icon(Icons.bookmark_add),
-                                  label: Text(widget.book.tersedia
+                                  label: Text(widget.book.isAvailable
                                       ? AppLocalizations.of(context)!.borrowBook
                                       : AppLocalizations.of(context)!.borrowed),
                                   style: ElevatedButton.styleFrom(

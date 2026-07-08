@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import './form_pengguna_page.dart';
+import './user_form_page.dart';
 
-class KelolaPenggunaPage extends StatelessWidget {
-  const KelolaPenggunaPage({super.key});
+class ManageUsersPage extends StatelessWidget {
+  const ManageUsersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class KelolaPenggunaPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const FormPenggunaPage(),
+                  builder: (context) => const UserFormPage(),
                 ),
               );
             },
@@ -44,7 +44,7 @@ class KelolaPenggunaPage extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.only(bottom: 16),
                 child: ListTile(
-                  title: Text(user.nama),
+                  title: Text(user.name),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -67,7 +67,7 @@ class KelolaPenggunaPage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  FormPenggunaPage(user: user),
+                                  UserFormPage(user: user),
                             ),
                           );
                         },
@@ -80,7 +80,7 @@ class KelolaPenggunaPage extends StatelessWidget {
                             builder: (context) => AlertDialog(
                               title: const Text('Delete User'),
                               content: Text(
-                                  'Are you sure you want to delete user "${user.nama}"?'),
+                                  'Are you sure you want to delete user "${user.name}"?'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
@@ -93,7 +93,7 @@ class KelolaPenggunaPage extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content:
-                                            Text('Pengguna berhasil dihapus'),
+                                            Text('User successfully deleted'),
                                       ),
                                     );
                                   },

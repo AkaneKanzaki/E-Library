@@ -12,13 +12,13 @@ class AuthProvider extends ChangeNotifier {
     User(
       email: 'admin@library.com',
       password: 'admin123',
-      nama: 'Administrator',
+      name: 'Administrator',
       role: 'Administrator',
     ),
     User(
       email: 'librarian@library.com',
       password: 'librarian123',
-      nama: 'Librarian',
+      name: 'Librarian',
       role: 'Librarian',
     ),
   ];
@@ -35,12 +35,12 @@ class AuthProvider extends ChangeNotifier {
   Future<void> checkLoginStatus() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final savedEmail = prefs.getString('email');
+      final savedEmail = prefs.getString('email')?.toLowerCase();
 
       if (savedEmail != null && savedEmail.isNotEmpty) {
         final user = _users.firstWhere(
-          (u) => u.email == savedEmail,
-          orElse: () => User(email: '', password: '', nama: '', role: ''),
+          (u) => u.email.trim().toLowerCase() == savedEmail,
+          orElse: () => User(email: '', password: '', name: '', role: ''),
         );
 
         if (user.email.isNotEmpty) {
@@ -58,10 +58,10 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> login(String email, String password) async {
     try {
-      final trimmedEmail = email.trim();
+      final trimmedEmail = email.trim().toLowerCase();
       final user = _users.firstWhere(
-        (u) => u.email.trim() == trimmedEmail && u.password == password,
-        orElse: () => User(email: '', password: '', nama: '', role: ''),
+        (u) => u.email.trim().toLowerCase() == trimmedEmail && u.password == password,
+        orElse: () => User(email: '', password: '', name: '', role: ''),
       );
 
       if (user.email.isEmpty) {
@@ -75,7 +75,7 @@ class AuthProvider extends ChangeNotifier {
       _isAuthenticated = true;
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('email', user.email);
+      await prefs.setString('email', user.email.toLowerCase());
 
       notifyListeners();
       return true;
@@ -103,16 +103,16 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> register(User user, String password) async {
-    final trimmedEmail = user.email.trim();
-    if (_users.any((u) => u.email.trim() == trimmedEmail)) {
+    final trimmedEmail = user.email.trim().toLowerCase();
+    if (_users.any((u) => u.email.trim().toLowerCase() == trimmedEmail)) {
       return false;
     }
 
     final newUser = User(
       email: trimmedEmail,
       password: password,
-      nama: user.nama,
-      role: 'siswa',
+      name: user.name,
+      role: 'student',
     );
 
     _users.add(newUser);
@@ -122,9 +122,9 @@ class AuthProvider extends ChangeNotifier {
 
   void addUser(User user, String password) {
     final newUser = User(
-      email: user.email.trim(),
+      email: user.email.trim().toLowerCase(),
       password: password,
-      nama: user.nama,
+      name: user.name,
       role: user.role,
     );
     _users.add(newUser);
@@ -132,12 +132,12 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void updateUser(User updatedUser) {
-    final index = _users.indexWhere((user) => user.email == updatedUser.email);
+    final index = _users.indexWhere((user) => user.email.trim().toLowerCase() == updatedUser.email.trim().toLowerCase());
     if (index != -1) {
       _users[index] = User(
-        email: updatedUser.email,
+        email: updatedUser.email.trim().toLowerCase(),
         password: _users[index].password,
-        nama: updatedUser.nama,
+        name: updatedUser.name,
         role: updatedUser.role,
       );
       notifyListeners();
@@ -145,15 +145,15 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void deleteUser(String email) {
-    _users.removeWhere((user) => user.email == email);
+    _users.removeWhere((user) => user.email.trim().toLowerCase() == email.trim().toLowerCase());
     notifyListeners();
   }
 
   User? getUserByEmail(String email) {
     try {
       final user = _users.firstWhere(
-        (u) => u.email == email,
-        orElse: () => User(email: '', password: '', nama: '', role: ''),
+        (u) => u.email.trim().toLowerCase() == email.trim().toLowerCase(),
+        orElse: () => User(email: '', password: '', name: '', role: ''),
       );
       return user.email.isEmpty ? null : user;
     } catch (e) {

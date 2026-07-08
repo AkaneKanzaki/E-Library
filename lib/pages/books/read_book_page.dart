@@ -60,7 +60,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.book.judul),
+        title: Text(widget.book.title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: _isLoading 
@@ -72,7 +72,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Halaman $_currentPage dari ${_totalPages == 0 ? '?' : _totalPages}',
+                    'Page $_currentPage of ${_totalPages == 0 ? '?' : _totalPages}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/peminjaman_provider.dart';
+import '../../providers/borrowing_provider.dart';
 import '../../providers/book_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/book.dart';
-import '../../models/peminjaman.dart';
+import '../../models/borrowing.dart';
 
-class RiwayatPage extends StatefulWidget {
-  const RiwayatPage({super.key});
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({super.key});
 
   @override
-  State<RiwayatPage> createState() => _RiwayatPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _RiwayatPageState extends State<RiwayatPage> {
+class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AuthProvider>(context).currentUser;
@@ -24,28 +24,28 @@ class _RiwayatPageState extends State<RiwayatPage> {
         title: const Text('Borrowing History'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Consumer2<PeminjamanProvider, BookProvider>(
-        builder: (context, peminjamanProvider, bookProvider, child) {
-          final riwayat = peminjamanProvider.getPeminjamanByUserId(user.email);
+      body: Consumer2<BorrowingProvider, BookProvider>(
+        builder: (context, borrowingProvider, bookProvider, child) {
+          final historyList = borrowingProvider.getBorrowingsByUserId(user.email);
 
-          if (riwayat.isEmpty) {
+          if (historyList.isEmpty) {
             return const Center(
               child: Text('No borrowing history yet'),
             );
           }
 
-          // Urutkan dari yang terbaru dipinjam
-          riwayat.sort((a, b) => b.tanggalPinjam.compareTo(a.tanggalPinjam));
+          // Sort by most recently borrowed
+          historyList.sort((a, b) => b.borrowDate.compareTo(a.borrowDate));
 
           return ListView.builder(
             padding: const EdgeInsets.all(16),
-            itemCount: riwayat.length,
+            itemCount: historyList.length,
             itemBuilder: (context, index) {
-              final pinjam = riwayat[index];
-              final book = bookProvider.getBookById(pinjam.bookId);
+              final borrowItem = historyList[index];
+              final book = bookProvider.getBookById(borrowItem.bookId);
               if (book == null) return const SizedBox();
 
-              return _buildRiwayatCard(pinjam, book);
+              return _buildRiwayatCard(borrowItem, book);
             },
           );
         },
@@ -53,9 +53,9 @@ class _RiwayatPageState extends State<RiwayatPage> {
     );
   }
 
-  Widget _buildRiwayatCard(Peminjaman peminjaman, Book book) {
-    final bool isActive = peminjaman.status == 'dipinjam';
-    final int denda = peminjaman.hitungDenda();
+  Widget _buildRiwayatCard(Borrowing borrowings, Book book) {
+    final bool isActive = borrowings.status == 'borrowed';
+    final int fine = borrowings.calculateFine();
     
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -69,7 +69,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
               children: [
                 Expanded(
                   child: Text(
-                    book.judul,
+                    book.title,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -86,7 +86,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    isActive ? 'Dipinjam' : 'Dikembalikan',
+                    isActive ? 'Borrowed' : 'Returned',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -96,14 +96,14 @@ class _RiwayatPageState extends State<RiwayatPage> {
               ],
             ),
             const SizedBox(height: 8),
-            Text('Author: ${book.penulis}'),
+            Text('Author: ${book.author}'),
             const SizedBox(height: 8),
-            Text('Borrow Date: ${_formatDate(peminjaman.tanggalPinjam)}'),
-            Text('Due Date: ${_formatDate(peminjaman.batasWaktu)}'),
-            if (!isActive && peminjaman.tanggalKembali != null)
-              Text('Return Date: ${_formatDate(peminjaman.tanggalKembali!)}'),
+            Text('Borrow Date: ${_formatDate(borrowings.borrowDate)}'),
+            Text('Due Date: ${_formatDate(borrowings.dueDate)}'),
+            if (!isActive && borrowings.returnDate != null)
+              Text('Return Date: ${_formatDate(borrowings.returnDate!)}'),
             
-            if (denda > 0) ...[
+            if (fine > 0) ...[
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.all(8),
@@ -117,7 +117,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
                     const Icon(Icons.warning_amber_rounded, color: Colors.red, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Denda Keterlambatan: Rp $denda',
+                      'Late Fine: Rp $fine',
                       style: const TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,

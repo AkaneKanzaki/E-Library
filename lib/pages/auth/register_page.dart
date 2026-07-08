@@ -12,7 +12,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  final _namaController = TextEditingController();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -22,8 +22,8 @@ class _RegisterPageState extends State<RegisterPage> {
       final user = User(
         email: _emailController.text,
         password: _passwordController.text,
-        nama: _namaController.text,
-        role: 'siswa', // Default role untuk user baru
+        name: _nameController.text,
+        role: 'student', // Default role for new user
       );
 
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -33,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
         const SnackBar(content: Text('Registration successful!')),
       );
       
-      Navigator.pop(context); // Kembali ke halaman login
+      Navigator.pop(context); // Back to login page
     }
   }
 
@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 32),
                   TextFormField(
-                    controller: _namaController,
+                    controller: _nameController,
                     decoration: const InputDecoration(
                       labelText: 'Full Name',
                       prefixIcon: Icon(Icons.person_outline),
@@ -158,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    _namaController.dispose();
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();

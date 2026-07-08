@@ -28,42 +28,42 @@ class BookProvider extends ChangeNotifier {
     final defaultBooks = [
       Book(
         id: '1',
-        judul: 'Bahasa Indonesia',
-        penulis: 'Eugenia Rakhma Subarna, Sofie Dewayani, Cicilia Erni Setyowati',
-        penerbit: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia',
-        tahunTerbit: '2023',
-        deskripsi: 'Buku pelajaran Bahasa Indonesia untuk siswa SMP/MTs Kelas VII. Buku ini dirancang untuk membantu siswa meningkatkan kemampuan berbahasa Indonesia melalui kegiatan pembelajaran yang menyenangkan, mencakup berbagai topik seperti teks deskripsi, teks naratif, teks prosedur, teks berita, dan teks tanggapan.',
+        title: 'Bahasa Indonesia',
+        author: 'Eugenia Rakhma Subarna, Sofie Dewayani, Cicilia Erni Setyowati',
+        publisher: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia',
+        publishYear: '2023',
+        description: 'Indonesian Language textbook for Junior High School Grade VII. Designed to help students improve their Indonesian language skills through fun learning activities.',
         coverUrl: 'assets/images/bahasa_indonesia.png',
-        tersedia: true,
-        kategori: 'Buku Pelajaran Bahasa Indonesia',
+        isAvailable: true,
+        category: 'Indonesian Language Textbook',
         bookPath: 'assets/books/bahasa_indonesia.pdf',
-        jumlahHalaman: 272,
+        pageCount: 272,
       ),
       Book(
         id: '2',
-        judul: 'Ilmu Pengetahuan Alam',
-        penulis: 'Victoriani Inabuy, Cece Sutia, Okky Fajar Tri Maryana, Budiyanti Dwi Hardanie, Sri Handayani Lestari',
-        penerbit: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia',
-        tahunTerbit: '2023',
-        deskripsi: 'Buku pelajaran Ilmu Pengetahuan Alam untuk siswa SMP/MTs Kelas VII. Buku ini merupakan sumber belajar utama dalam pembelajaran bagi siswa dan menjadi salah satu referensi atau inspirasi bagi guru dalam merancang dan mengembangkan pembelajaran sesuai karakteristik, potensi, dan kebutuhan peserta didik.',
+        title: 'Ilmu Pengetahuan Alam',
+        author: 'Victoriani Inabuy, Cece Sutia, Okky Fajar Tri Maryana, Budiyanti Dwi Hardanie, Sri Handayani Lestari',
+        publisher: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia',
+        publishYear: '2023',
+        description: 'Natural Sciences textbook for Junior High School Grade VII. A core learning resource for students and reference for teachers in designing learning activities.',
         coverUrl: 'assets/images/ipa.png',
-        tersedia: true,
-        kategori: 'Ilmu Pengetahuan Alam, Buku Pelajaran',
+        isAvailable: true,
+        category: 'Natural Sciences, Textbook',
         bookPath: 'assets/books/ipa.pdf',
-        jumlahHalaman: 280,
+        pageCount: 280,
       ),
       Book(
         id: '3',
-        judul: 'Ilmu Pengetahuan Sosial',
-        penulis: 'Muhammad Nursa\'ban, Supardi',
-        penerbit: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia',
-        tahunTerbit: '2023',
-        deskripsi: 'Buku pelajaran Ilmu Pengetahuan Sosial untuk siswa SMP/MTs Kelas VII. Buku ini menyajikan materi terkait dengan keberadaan diri dan keluarga dalam keberagaman lingkungan sosial terdekat, potensi ekonomi lingkungan, dan pemberdayaan masyarakat.',
+        title: 'Ilmu Pengetahuan Sosial',
+        author: 'Muhammad Nursa\'ban, Supardi',
+        publisher: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia',
+        publishYear: '2023',
+        description: 'Social Sciences textbook for Junior High School Grade VII. Presents materials related to self-existence and family in the closest social environment.',
         coverUrl: 'assets/images/ips.png',
-        tersedia: true,
-        kategori: 'Ilmu Pengetahuan Sosial, Buku Pelajaran',
+        isAvailable: true,
+        category: 'Social Sciences, Textbook',
         bookPath: 'assets/books/ips.pdf',
-        jumlahHalaman: 280,
+        pageCount: 280,
       ),
     ];
 
@@ -107,11 +107,11 @@ class BookProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateBookStatus(String id, bool tersedia) async {
+  Future<void> updateBookStatus(String id, bool isAvailable) async {
     final db = await DatabaseHelper.instance.database;
     await db.update(
       'books',
-      {'tersedia': tersedia ? 1 : 0},
+      {'isAvailable': isAvailable ? 1 : 0},
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -121,16 +121,16 @@ class BookProvider extends ChangeNotifier {
       final book = _books[index];
       _books[index] = Book(
         id: book.id,
-        judul: book.judul,
-        penulis: book.penulis,
-        penerbit: book.penerbit,
-        tahunTerbit: book.tahunTerbit,
-        deskripsi: book.deskripsi,
+        title: book.title,
+        author: book.author,
+        publisher: book.publisher,
+        publishYear: book.publishYear,
+        description: book.description,
         coverUrl: book.coverUrl,
-        tersedia: tersedia,
-        kategori: book.kategori,
+        isAvailable: isAvailable,
+        category: book.category,
         bookPath: book.bookPath,
-        jumlahHalaman: book.jumlahHalaman,
+        pageCount: book.pageCount,
       );
       notifyListeners();
     }
@@ -150,9 +150,9 @@ class BookProvider extends ChangeNotifier {
 
   List<Book> searchBooks(String query) {
     return _books.where((book) =>
-      book.judul.toLowerCase().contains(query.toLowerCase()) ||
-      book.penulis.toLowerCase().contains(query.toLowerCase()) ||
-      book.kategori.toLowerCase().contains(query.toLowerCase())
+      book.title.toLowerCase().contains(query.toLowerCase()) ||
+      book.author.toLowerCase().contains(query.toLowerCase()) ||
+      book.category.toLowerCase().contains(query.toLowerCase())
     ).toList();
   }
 }

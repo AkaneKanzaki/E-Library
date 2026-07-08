@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import '../../providers/peminjaman_provider.dart';
+import '../../providers/borrowing_provider.dart';
 import '../books/search_book_page.dart';
-import '../books/pinjam_buku_page.dart';
+import '../books/borrow_book_page.dart';
 import '../auth/login_page.dart';
-import './riwayat_page.dart';
+import './history_page.dart';
 import './profile_page.dart';
 import '../../providers/book_provider.dart';
 import '../books/book_detail_page.dart';
@@ -54,11 +54,11 @@ class DashboardPage extends StatelessWidget {
     } else if (user.role.toLowerCase() == 'librarian') {
       return const DashboardLibrarianPage();
     } else {
-      return _buildSiswaDashboard(context, user);
+      return _buildStudentDashboard(context, user);
     }
   }
 
-  Widget _buildSiswaDashboard(BuildContext context, User user) {
+  Widget _buildStudentDashboard(BuildContext context, User user) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -108,12 +108,12 @@ class DashboardPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<PeminjamanProvider>(
-        builder: (context, peminjamanProvider, child) {
-          final jumlahDipinjam =
-              peminjamanProvider.getJumlahBukuDipinjam(user.email);
-          final jumlahRiwayat =
-              peminjamanProvider.getJumlahRiwayatPeminjaman(user.email);
+      body: Consumer<BorrowingProvider>(
+        builder: (context, borrowingProvider, child) {
+          final borrowedCount =
+              borrowingProvider.getBorrowedBooksCount(user.email);
+          final historyCount =
+              borrowingProvider.getBorrowingHistoryCount(user.email);
 
           return SingleChildScrollView(
             child: Column(
@@ -133,7 +133,7 @@ class DashboardPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        user.nama,
+                        user.name,
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).colorScheme.onSurface,
@@ -148,7 +148,7 @@ class DashboardPage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const PinjamBukuPage()),
+                                          const BorrowBookPage()),
                                 ),
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
@@ -167,7 +167,7 @@ class DashboardPage extends StatelessWidget {
                                   child: _buildStatItem(
                                     icon: Icons.book,
                                     label: AppLocalizations.of(context)!.borrowedBooks,
-                                    value: jumlahDipinjam.toString(),
+                                    value: borrowedCount.toString(),
                                     color: Colors.blue,
                                   ),
                                 ),
@@ -180,7 +180,7 @@ class DashboardPage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const RiwayatPage()),
+                                          const HistoryPage()),
                                 ),
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
@@ -199,7 +199,7 @@ class DashboardPage extends StatelessWidget {
                                   child: _buildStatItem(
                                     icon: Icons.history,
                                     label: AppLocalizations.of(context)!.borrowHistory,
-                                    value: jumlahRiwayat.toString(),
+                                    value: historyCount.toString(),
                                     color: Colors.green,
                                   ),
                                 ),
@@ -281,7 +281,7 @@ class DashboardPage extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  book.judul,
+                                                  book.title,
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -292,7 +292,7 @@ class DashboardPage extends StatelessWidget {
                                                 ),
                                                 const SizedBox(height: 4),
                                                 Text(
-                                                  book.penulis,
+                                                  book.author,
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,

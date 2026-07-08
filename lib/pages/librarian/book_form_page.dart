@@ -3,50 +3,50 @@ import 'package:provider/provider.dart';
 import '../../models/book.dart';
 import '../../providers/book_provider.dart';
 
-class FormBukuPage extends StatefulWidget {
-  final Book? book; // null jika tambah buku, berisi data jika edit buku
+class BookFormPage extends StatefulWidget {
+  final Book? book; // null if adding a book, contains data if editing
 
-  const FormBukuPage({super.key, this.book});
+  const BookFormPage({super.key, this.book});
 
   @override
-  State<FormBukuPage> createState() => _FormBukuPageState();
+  State<BookFormPage> createState() => _BookFormPageState();
 }
 
-class _FormBukuPageState extends State<FormBukuPage> {
+class _BookFormPageState extends State<BookFormPage> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _judulController;
-  late TextEditingController _penulisController;
-  late TextEditingController _penerbitController;
-  late TextEditingController _tahunTerbitController;
-  late TextEditingController _deskripsiController;
-  late TextEditingController _kategoriController;
-  late bool _tersedia;
-  late TextEditingController _jumlahHalamanController;
+  late TextEditingController _titleController;
+  late TextEditingController _authorController;
+  late TextEditingController _publisherController;
+  late TextEditingController _publishYearController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _categoryController;
+  late bool _isAvailable;
+  late TextEditingController _pageCountController;
 
   @override
   void initState() {
     super.initState();
     final book = widget.book;
-    _judulController = TextEditingController(text: book?.judul);
-    _penulisController = TextEditingController(text: book?.penulis);
-    _penerbitController = TextEditingController(text: book?.penerbit);
-    _tahunTerbitController = TextEditingController(text: book?.tahunTerbit);
-    _deskripsiController = TextEditingController(text: book?.kategori);
-    _kategoriController = TextEditingController(text: book?.kategori);
-    _tersedia = book?.tersedia ?? true;
-    _jumlahHalamanController =
-        TextEditingController(text: book?.jumlahHalaman.toString() ?? '0');
+    _titleController = TextEditingController(text: book?.title);
+    _authorController = TextEditingController(text: book?.author);
+    _publisherController = TextEditingController(text: book?.publisher);
+    _publishYearController = TextEditingController(text: book?.publishYear);
+    _descriptionController = TextEditingController(text: book?.category);
+    _categoryController = TextEditingController(text: book?.category);
+    _isAvailable = book?.isAvailable ?? true;
+    _pageCountController =
+        TextEditingController(text: book?.pageCount.toString() ?? '0');
   }
 
   @override
   void dispose() {
-    _judulController.dispose();
-    _penulisController.dispose();
-    _penerbitController.dispose();
-    _tahunTerbitController.dispose();
-    _deskripsiController.dispose();
-    _kategoriController.dispose();
-    _jumlahHalamanController.dispose();
+    _titleController.dispose();
+    _authorController.dispose();
+    _publisherController.dispose();
+    _publishYearController.dispose();
+    _descriptionController.dispose();
+    _categoryController.dispose();
+    _pageCountController.dispose();
     super.dispose();
   }
 
@@ -54,23 +54,23 @@ class _FormBukuPageState extends State<FormBukuPage> {
     if (_formKey.currentState!.validate()) {
       final book = Book(
         id: widget.book?.id ?? DateTime.now().toString(),
-        judul: _judulController.text,
-        penulis: _penulisController.text,
-        penerbit: _penerbitController.text,
-        tahunTerbit: _tahunTerbitController.text,
-        deskripsi: _deskripsiController.text,
+        title: _titleController.text,
+        author: _authorController.text,
+        publisher: _publisherController.text,
+        publishYear: _publishYearController.text,
+        description: _descriptionController.text,
         coverUrl: 'assets/images/default_book.png',
-        tersedia: _tersedia,
-        kategori: _kategoriController.text,
+        isAvailable: _isAvailable,
+        category: _categoryController.text,
         bookPath: 'assets/books/default.pdf',
-        jumlahHalaman: int.tryParse(_jumlahHalamanController.text) ?? 0,
+        pageCount: int.tryParse(_pageCountController.text) ?? 0,
       );
 
       if (widget.book == null) {
-        // Tambah buku baru
+        // Add new book
         Provider.of<BookProvider>(context, listen: false).addBook(book);
       } else {
-        // Update buku yang ada
+        // Update existing book
         Provider.of<BookProvider>(context, listen: false).updateBook(book);
       }
 
@@ -79,7 +79,7 @@ class _FormBukuPageState extends State<FormBukuPage> {
         SnackBar(
           content: Text(widget.book == null
               ? 'Book successfully added'
-              : 'Buku berhasil diperbarui'),
+              : 'Book successfully updated'),
         ),
       );
     }
@@ -99,86 +99,86 @@ class _FormBukuPageState extends State<FormBukuPage> {
           child: Column(
             children: [
               TextFormField(
-                controller: _judulController,
-                decoration: const InputDecoration(labelText: 'Judul Buku'),
+                controller: _titleController,
+                decoration: const InputDecoration(labelText: 'Book Title'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Judul buku harus diisi';
+                    return 'Book title is required';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _penulisController,
-                decoration: const InputDecoration(labelText: 'Penulis'),
+                controller: _authorController,
+                decoration: const InputDecoration(labelText: 'Author'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Penulis harus diisi';
+                    return 'Author is required';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _penerbitController,
+                controller: _publisherController,
                 decoration: const InputDecoration(labelText: 'Publisher'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Penerbit harus diisi';
+                    return 'Publisher is required';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _tahunTerbitController,
-                decoration: const InputDecoration(labelText: 'Tahun Terbit'),
+                controller: _publishYearController,
+                decoration: const InputDecoration(labelText: 'Publish Year'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Tahun terbit harus diisi';
+                    return 'Publish year is required';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _kategoriController,
-                decoration: const InputDecoration(labelText: 'Kategori'),
+                controller: _categoryController,
+                decoration: const InputDecoration(labelText: 'Category'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Kategori harus diisi';
+                    return 'Category is required';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _deskripsiController,
+                controller: _descriptionController,
                 decoration: const InputDecoration(labelText: 'Description'),
                 maxLines: 3,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Deskripsi harus diisi';
+                    return 'Description is required';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _jumlahHalamanController,
-                decoration: const InputDecoration(labelText: 'Jumlah Halaman'),
+                controller: _pageCountController,
+                decoration: const InputDecoration(labelText: 'Page Count'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Jumlah halaman harus diisi';
+                    return 'Page count is required';
                   }
                   if (int.tryParse(value) == null) {
-                    return 'Jumlah halaman harus berupa angka';
+                    return 'Page count must be a number';
                   }
                   if (int.parse(value) <= 0) {
-                    return 'Jumlah halaman harus lebih dari 0';
+                    return 'Page count must be greater than 0';
                   }
                   return null;
                 },
@@ -186,10 +186,10 @@ class _FormBukuPageState extends State<FormBukuPage> {
               const SizedBox(height: 16),
               SwitchListTile(
                 title: const Text('Available'),
-                value: _tersedia,
+                value: _isAvailable,
                 onChanged: (bool value) {
                   setState(() {
-                    _tersedia = value;
+                    _isAvailable = value;
                   });
                 },
               ),
