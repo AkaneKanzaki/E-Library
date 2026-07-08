@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:e_library1/providers/auth_provider.dart';
-import 'package:e_library1/pages/login_page.dart';
-import 'package:e_library1/pages/register_page.dart';
-import 'package:e_library1/pages/about_page.dart';
-import 'package:e_library1/providers/book_provider.dart';
-import 'package:e_library1/providers/peminjaman_provider.dart';
-import 'package:e_library1/providers/favorite_provider.dart';
-import 'package:e_library1/providers/theme_provider.dart';
+import 'package:elibrary/providers/auth_provider.dart';
+import 'package:elibrary/pages/login_page.dart';
+import 'package:elibrary/pages/register_page.dart';
+import 'package:elibrary/pages/about_page.dart';
+import 'package:elibrary/providers/book_provider.dart';
+import 'package:elibrary/providers/peminjaman_provider.dart';
+import 'package:elibrary/providers/favorite_provider.dart';
+import 'package:elibrary/providers/theme_provider.dart';
 
-import 'package:e_library1/pages/dashboard_page.dart';
+import 'package:elibrary/pages/dashboard_page.dart';
 
 void main() {
   runApp(
