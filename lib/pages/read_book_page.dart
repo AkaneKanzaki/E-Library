@@ -3,6 +3,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/book.dart';
 
 class ReadBookPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
   PDFViewController? _pdfController;
   int _currentPage = 1;
   int _totalPages = 0;
+  int _initialPage = 0;
   
   @override
   void initState() {
@@ -29,12 +31,18 @@ class _ReadBookPageState extends State<ReadBookPage> {
   
   Future<void> _loadPDF() async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final lastPage = prefs.getInt('last_page_${widget.book.id}') ?? 0;
+
       final bytes = await rootBundle.load(widget.book.bookPath);
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/${widget.book.id}.pdf');
       
       await file.writeAsBytes(bytes.buffer.asUint8List());
+      
       setState(() {
+        _initialPage = lastPage;
+        _currentPage = lastPage + 1;
         _localPath = file.path;
         _isLoading = false;
       });
@@ -64,13 +72,14 @@ class _ReadBookPageState extends State<ReadBookPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Halaman $_currentPage dari $_totalPages',
+                    'Halaman $_currentPage dari ${_totalPages == 0 ? '?' : _totalPages}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
                 Expanded(
                   child: PDFView(
                     filePath: _localPath!,
+                    defaultPage: _initialPage,
                     enableSwipe: true,
                     swipeHorizontal: true,
                     autoSpacing: false,
@@ -78,12 +87,15 @@ class _ReadBookPageState extends State<ReadBookPage> {
                     onViewCreated: (PDFViewController pdfController) {
                       _pdfController = pdfController;
                     },
-                    onPageChanged: (int? page, int? total) {
+                    onPageChanged: (int? page, int? total) async {
                       if (mounted && page != null && total != null) {
                         setState(() {
                           _currentPage = page + 1;
                           _totalPages = total;
                         });
+                        
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setInt('last_page_${widget.book.id}', page);
                       }
                     },
                     onError: (error) {
@@ -109,7 +121,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
                         child: const Text('Sebelumnya'),
                       ),
                       ElevatedButton(
-                        onPressed: _currentPage < _totalPages
+                        onPressed: _totalPages == 0 || _currentPage < _totalPages
                             ? () {
                                 _pdfController?.setPage(_currentPage);
                               }
@@ -123,4 +135,4 @@ class _ReadBookPageState extends State<ReadBookPage> {
             ),
     );
   }
-} 
+}
