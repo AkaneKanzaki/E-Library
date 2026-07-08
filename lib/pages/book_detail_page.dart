@@ -5,6 +5,7 @@ import '../providers/peminjaman_provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/favorite_provider.dart';
 import './read_book_page.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 
 class BookDetailPage extends StatefulWidget {
   final Book book;
@@ -65,6 +66,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       child: Image.asset(
                         widget.book.coverUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 500,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: Colors.grey.shade200,
@@ -109,7 +111,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          widget.book.tersedia ? 'Available' : 'Dipinjam',
+                          widget.book.tersedia ? 'Available' : AppLocalizations.of(context)!.borrowed,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -122,10 +124,10 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
                   // Penulis
                   Text(
-                    'Oleh: ${widget.book.penulis}',
+                    '${AppLocalizations.of(context)!.byAuthor}${widget.book.penulis}',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.grey.shade600,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -138,15 +140,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildInfoRow('Publisher', widget.book.penerbit),
+                          _buildInfoRow('Publisher', widget.book.penerbit, context),
                           const Divider(),
                           _buildInfoRow(
-                              'Tahun Terbit', widget.book.tahunTerbit),
+                              AppLocalizations.of(context)!.publishedYear, widget.book.tahunTerbit, context),
                           const Divider(),
-                          _buildInfoRow('Kategori', widget.book.kategori),
+                          _buildInfoRow(AppLocalizations.of(context)!.category, widget.book.kategori, context),
                           const Divider(),
-                          _buildInfoRow('Jumlah Halaman',
-                              '${widget.book.jumlahHalaman} halaman'),
+                          _buildInfoRow(AppLocalizations.of(context)!.totalPages,
+                              '${widget.book.jumlahHalaman} ${AppLocalizations.of(context)!.pages}', context),
                         ],
                       ),
                     ),
@@ -154,25 +156,27 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   const SizedBox(height: 24),
 
                   // Deskripsi
-                  const Text(
+                  Text(
                     'Description',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       widget.book.deskripsi,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         height: 1.5,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
@@ -196,7 +200,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                     );
                                   },
                                   icon: const Icon(Icons.book_outlined),
-                                  label: const Text('Read Book'),
+                                  label: Text(AppLocalizations.of(context)!.readBook),
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 12),
@@ -218,8 +222,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                               SnackBar(
                                                 content: Text(
                                                   success
-                                                      ? 'Book successfully borrowed'
-                                                      : 'Gagal meminjam buku',
+                                                      ? AppLocalizations.of(context)!.borrowSuccess
+                                                      : AppLocalizations.of(context)!.borrowFail,
                                                 ),
                                               ),
                                             );
@@ -228,8 +232,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                       : null,
                                   icon: const Icon(Icons.bookmark_add),
                                   label: Text(widget.book.tersedia
-                                      ? 'Pinjam Buku'
-                                      : 'Sedang Dipinjam'),
+                                      ? AppLocalizations.of(context)!.borrowBook
+                                      : AppLocalizations.of(context)!.borrowed),
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 12),
@@ -249,8 +253,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(isFavorite
-                                          ? 'Dihapus dari favorit'
-                                          : 'Ditambahkan ke favorit'),
+                                          ? AppLocalizations.of(context)!.removedFavorite
+                                          : AppLocalizations.of(context)!.addedFavorite),
                                     ),
                                   );
                                 },
@@ -261,8 +265,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                   color: isFavorite ? Colors.red : null,
                                 ),
                                 label: Text(isFavorite
-                                    ? 'Hapus Favorit'
-                                    : 'Tambah Favorit'),
+                                    ? AppLocalizations.of(context)!.removeFavorite
+                                    : AppLocalizations.of(context)!.addFavorite),
                                 style: ElevatedButton.styleFrom(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
@@ -283,7 +287,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     );
   }
 
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildInfoRow(String label, String value, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -293,19 +297,21 @@ class _BookDetailPageState extends State<BookDetailPage> {
             width: 100,
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
           ),
+          const SizedBox(width: 16),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),

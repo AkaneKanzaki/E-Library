@@ -13,13 +13,13 @@ class AuthProvider extends ChangeNotifier {
       email: 'admin@library.com',
       password: 'admin123',
       nama: 'Administrator',
-      role: 'administrator',
+      role: 'Administrator',
     ),
     User(
       email: 'librarian@library.com',
       password: 'librarian123',
       nama: 'Librarian',
-      role: 'librarian',
+      role: 'Librarian',
     ),
   ];
 
@@ -58,8 +58,9 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> login(String email, String password) async {
     try {
+      final trimmedEmail = email.trim();
       final user = _users.firstWhere(
-        (u) => u.email == email && u.password == password,
+        (u) => u.email.trim() == trimmedEmail && u.password == password,
         orElse: () => User(email: '', password: '', nama: '', role: ''),
       );
 
@@ -102,12 +103,13 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> register(User user, String password) async {
-    if (_users.any((u) => u.email == user.email)) {
+    final trimmedEmail = user.email.trim();
+    if (_users.any((u) => u.email.trim() == trimmedEmail)) {
       return false;
     }
 
     final newUser = User(
-      email: user.email,
+      email: trimmedEmail,
       password: password,
       nama: user.nama,
       role: 'siswa',
@@ -120,7 +122,7 @@ class AuthProvider extends ChangeNotifier {
 
   void addUser(User user, String password) {
     final newUser = User(
-      email: user.email,
+      email: user.email.trim(),
       password: password,
       nama: user.nama,
       role: user.role,

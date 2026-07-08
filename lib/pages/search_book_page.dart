@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
 import '../models/book.dart';
 import './book_detail_page.dart';
+import 'package:elibrary/l10n/app_localizations.dart';
 
 class SearchBookPage extends StatefulWidget {
   const SearchBookPage({super.key});
@@ -31,7 +32,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Cari judul atau penulis...',
+                hintText: AppLocalizations.of(context)!.searchHint,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -91,6 +92,7 @@ class _SearchBookPageState extends State<SearchBookPage> {
                 child: Image.asset(
                   book.coverUrl,
                   fit: BoxFit.cover,
+                  cacheWidth: 300,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       color: Colors.grey.shade200,

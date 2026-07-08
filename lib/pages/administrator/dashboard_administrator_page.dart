@@ -4,6 +4,8 @@ import '../../providers/auth_provider.dart';
 import '../../main.dart';
 import '../../pages/administrator/kelola_pengguna_page.dart';
 import './laporan_page.dart';
+import '../librarian/kelola_buku_page.dart';
+import '../librarian/daftar_peminjaman_page.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
 
 class DashboardAdministratorPage extends StatelessWidget {
@@ -25,11 +27,7 @@ class DashboardAdministratorPage extends StatelessWidget {
             icon: const Icon(Icons.logout),
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
-                (route) => false,
-              );
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ],
@@ -39,12 +37,23 @@ class DashboardAdministratorPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${AppLocalizations.of(context)!.welcomeAdmin}\n${user.nama}',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Welcome back,',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                ),
+                Text(
+                  '${user.nama} (${user.role})',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+              ],
             ),
             const SizedBox(height: 32),
             
@@ -66,9 +75,23 @@ class DashboardAdministratorPage extends StatelessWidget {
               children: [
                 _buildMenuCard(
                   context,
+                  icon: Icons.book_outlined,
+                  title: AppLocalizations.of(context)!.manageBooks,
+                  color: Colors.blue,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const KelolaBukuPage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuCard(
+                  context,
                   icon: Icons.people_outline,
                   title: AppLocalizations.of(context)!.manageUsers,
-                  color: Colors.blue,
+                  color: Colors.green,
                   onTap: () {
                     Navigator.push(
                       context,
@@ -80,9 +103,23 @@ class DashboardAdministratorPage extends StatelessWidget {
                 ),
                 _buildMenuCard(
                   context,
+                  icon: Icons.check_circle_outline,
+                  title: AppLocalizations.of(context)!.manageBorrowing,
+                  color: Colors.orange,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DaftarPeminjamanPage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuCard(
+                  context,
                   icon: Icons.analytics_outlined,
                   title: AppLocalizations.of(context)!.reports,
-                  color: Colors.green,
+                  color: Colors.purple,
                   onTap: () {
                     Navigator.push(
                       context,

@@ -55,7 +55,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
               seedColor: const Color(0xFF2563EB), // Deep Modern Blue
-              surface: const Color(0xFFF8FAFC), // Very light gray-blue background
+              surface:
+                  const Color(0xFFF8FAFC), // Very light gray-blue background
             ),
             useMaterial3: true,
             textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
@@ -73,23 +74,28 @@ class MyApp extends StatelessWidget {
             cardTheme: CardThemeData(
               elevation: 2,
               shadowColor: Colors.black.withValues(alpha: 0.05),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
               clipBehavior: Clip.antiAlias,
             ),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 backgroundColor: const Color(0xFF2563EB),
                 foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                textStyle:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
             ),
             inputDecorationTheme: InputDecorationTheme(
               filled: true,
               fillColor: Colors.white,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
@@ -100,7 +106,8 @@ class MyApp extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFF2563EB), width: 2),
+                borderSide:
+                    const BorderSide(color: Color(0xFF2563EB), width: 2),
               ),
             ),
           ),
@@ -128,17 +135,21 @@ class MyApp extends StatelessWidget {
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 backgroundColor: const Color(0xFF3B82F6),
                 foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                textStyle:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
             ),
             inputDecorationTheme: InputDecorationTheme(
               filled: true,
               fillColor: const Color(0xFF1E293B),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: const BorderSide(color: Color(0xFF334155)),
@@ -149,7 +160,8 @@ class MyApp extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFF3B82F6), width: 2),
+                borderSide:
+                    const BorderSide(color: Color(0xFF3B82F6), width: 2),
               ),
             ),
           ),
@@ -245,7 +257,7 @@ class HomePage extends StatelessWidget {
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 16),
                 ),
-                child: const Text('Register New Member'),
+                child: const Text('Register'),
               ),
               const SizedBox(height: 32),
               TextButton(
@@ -256,7 +268,8 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 child: const Text('Tentang Aplikasi'),
               ),

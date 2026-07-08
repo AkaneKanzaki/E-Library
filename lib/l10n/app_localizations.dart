@@ -251,20 +251,110 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeLibrarian.
   ///
   /// In id, this message translates to:
-  /// **'Selamat datang, Pustakawan'**
+  /// **'Selamat datang, Librarian'**
   String get welcomeLibrarian;
 
-  /// No description provided for @manageBooks.
+  /// No description provided for @searchHint.
   ///
   /// In id, this message translates to:
-  /// **'Kelola Buku'**
-  String get manageBooks;
+  /// **'Cari judul atau penulis...'**
+  String get searchHint;
+
+  /// No description provided for @byAuthor.
+  ///
+  /// In id, this message translates to:
+  /// **'Oleh: '**
+  String get byAuthor;
+
+  /// No description provided for @publishedYear.
+  ///
+  /// In id, this message translates to:
+  /// **'Tahun Terbit'**
+  String get publishedYear;
+
+  /// No description provided for @category.
+  ///
+  /// In id, this message translates to:
+  /// **'Kategori'**
+  String get category;
+
+  /// No description provided for @totalPages.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah Halaman'**
+  String get totalPages;
+
+  /// No description provided for @pages.
+  ///
+  /// In id, this message translates to:
+  /// **'halaman'**
+  String get pages;
+
+  /// No description provided for @borrowBook.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjam Buku'**
+  String get borrowBook;
+
+  /// No description provided for @borrowed.
+  ///
+  /// In id, this message translates to:
+  /// **'Dipinjam'**
+  String get borrowed;
+
+  /// No description provided for @readBook.
+  ///
+  /// In id, this message translates to:
+  /// **'Baca Buku'**
+  String get readBook;
+
+  /// No description provided for @borrowSuccess.
+  ///
+  /// In id, this message translates to:
+  /// **'Buku berhasil dipinjam'**
+  String get borrowSuccess;
+
+  /// No description provided for @borrowFail.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal meminjam buku'**
+  String get borrowFail;
+
+  /// No description provided for @addFavorite.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah Favorit'**
+  String get addFavorite;
+
+  /// No description provided for @removeFavorite.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus Favorit'**
+  String get removeFavorite;
+
+  /// No description provided for @addedFavorite.
+  ///
+  /// In id, this message translates to:
+  /// **'Ditambahkan ke favorit'**
+  String get addedFavorite;
+
+  /// No description provided for @removedFavorite.
+  ///
+  /// In id, this message translates to:
+  /// **'Dihapus dari favorit'**
+  String get removedFavorite;
 
   /// No description provided for @manageBorrowing.
   ///
   /// In id, this message translates to:
-  /// **'Daftar Peminjaman'**
+  /// **'Approval Peminjaman'**
   String get manageBorrowing;
+
+  /// No description provided for @manageBooks.
+  ///
+  /// In id, this message translates to:
+  /// **'Manajemen Buku'**
+  String get manageBooks;
 }
 
 class _AppLocalizationsDelegate

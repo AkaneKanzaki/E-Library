@@ -12,6 +12,8 @@ import './book_detail_page.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import '../models/user.dart';
 import 'package:elibrary/l10n/app_localizations.dart';
+import './administrator/dashboard_administrator_page.dart';
+import './librarian/dashboard_librarian_page.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -47,188 +49,13 @@ class DashboardPage extends StatelessWidget {
       );
     }
 
-    if (user.role == 'administrator' || user.role == 'librarian') {
-      return _buildAdminDashboard(context, user);
+    if (user.role.toLowerCase() == 'administrator') {
+      return const DashboardAdministratorPage();
+    } else if (user.role.toLowerCase() == 'librarian') {
+      return const DashboardLibrarianPage();
     } else {
       return _buildSiswaDashboard(context, user);
     }
-  }
-
-  Widget _buildAdminDashboard(BuildContext context, User user) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          'Admin Panel',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: Icon(Icons.person_outline, color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Welcome back,',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                        ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${user.nama} (${user.role})',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                'Menu Utama',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade800,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: [
-                  _buildAdminMenuCard(
-                    context,
-                    title: 'Manajemen Buku',
-                    icon: Icons.library_books,
-                    color: Colors.blue,
-                    onTap: () {
-                      // Halaman Manajemen Buku di Phase berikutnya
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Book Management: Coming Soon')),
-                      );
-                    },
-                  ),
-                  _buildAdminMenuCard(
-                    context,
-                    title: 'Daftar Anggota',
-                    icon: Icons.people,
-                    color: Colors.green,
-                    onTap: () {
-                      // Halaman Daftar Anggota di Phase berikutnya
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Member List: Coming Soon')),
-                      );
-                    },
-                  ),
-                  _buildAdminMenuCard(
-                    context,
-                    title: 'Approval Peminjaman',
-                    icon: Icons.check_circle_outline,
-                    color: Colors.orange,
-                    onTap: () {
-                      // Halaman Approval di Phase berikutnya
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Borrowing Approval: Coming Soon')),
-                      );
-                    },
-                  ),
-                  _buildAdminMenuCard(
-                    context,
-                    title: 'Reports',
-                    icon: Icons.bar_chart,
-                    color: Colors.purple,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Reports: Coming Soon')),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAdminMenuCard(BuildContext context,
-      {required String title,
-      required IconData icon,
-      required Color color,
-      required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, size: 32, color: color),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _buildSiswaDashboard(BuildContext context, User user) {
@@ -437,7 +264,14 @@ class DashboardPage extends StatelessWidget {
                                           child: Image.asset(
                                             book.coverUrl,
                                             fit: BoxFit.cover,
+                                            cacheWidth: 300,
                                             width: double.infinity,
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return Container(
+                                                color: Colors.grey.shade200,
+                                                child: const Icon(Icons.book, size: 40),
+                                              );
+                                            },
                                           ),
                                         ),
                                         Expanded(

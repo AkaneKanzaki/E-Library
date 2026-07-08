@@ -123,12 +123,12 @@ class _LoginPageState extends State<LoginPage> {
       if (success) {
         final user = Provider.of<AuthProvider>(context, listen: false).currentUser;
         
-        if (user?.role == 'librarian') {
+        if (user?.role.toLowerCase() == 'librarian') {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const DashboardLibrarianPage()),
           );
-        } else if (user?.role == 'administrator') {
+        } else if (user?.role.toLowerCase() == 'administrator') {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const DashboardAdministratorPage()),

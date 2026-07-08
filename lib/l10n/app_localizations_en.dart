@@ -87,8 +87,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeLibrarian => 'Welcome, Librarian';
 
   @override
-  String get manageBooks => 'Manage Books';
+  String get searchHint => 'Search title or author...';
+
+  @override
+  String get byAuthor => 'By: ';
+
+  @override
+  String get publishedYear => 'Published Year';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get totalPages => 'Total Pages';
+
+  @override
+  String get pages => 'pages';
+
+  @override
+  String get borrowBook => 'Borrow Book';
+
+  @override
+  String get borrowed => 'Borrowed';
+
+  @override
+  String get readBook => 'Read Book';
+
+  @override
+  String get borrowSuccess => 'Book successfully borrowed';
+
+  @override
+  String get borrowFail => 'Failed to borrow book';
+
+  @override
+  String get addFavorite => 'Add Favorite';
+
+  @override
+  String get removeFavorite => 'Remove Favorite';
+
+  @override
+  String get addedFavorite => 'Added to favorites';
+
+  @override
+  String get removedFavorite => 'Removed from favorites';
 
   @override
   String get manageBorrowing => 'Manage Borrowing';
+
+  @override
+  String get manageBooks => 'Manage Books';
 }

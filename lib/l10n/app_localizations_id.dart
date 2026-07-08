@@ -84,11 +84,56 @@ class AppLocalizationsId extends AppLocalizations {
   String get reports => 'Laporan';
 
   @override
-  String get welcomeLibrarian => 'Selamat datang, Pustakawan';
+  String get welcomeLibrarian => 'Selamat datang, Librarian';
 
   @override
-  String get manageBooks => 'Kelola Buku';
+  String get searchHint => 'Cari judul atau penulis...';
 
   @override
-  String get manageBorrowing => 'Daftar Peminjaman';
+  String get byAuthor => 'Oleh: ';
+
+  @override
+  String get publishedYear => 'Tahun Terbit';
+
+  @override
+  String get category => 'Kategori';
+
+  @override
+  String get totalPages => 'Jumlah Halaman';
+
+  @override
+  String get pages => 'halaman';
+
+  @override
+  String get borrowBook => 'Pinjam Buku';
+
+  @override
+  String get borrowed => 'Dipinjam';
+
+  @override
+  String get readBook => 'Baca Buku';
+
+  @override
+  String get borrowSuccess => 'Buku berhasil dipinjam';
+
+  @override
+  String get borrowFail => 'Gagal meminjam buku';
+
+  @override
+  String get addFavorite => 'Tambah Favorit';
+
+  @override
+  String get removeFavorite => 'Hapus Favorit';
+
+  @override
+  String get addedFavorite => 'Ditambahkan ke favorit';
+
+  @override
+  String get removedFavorite => 'Dihapus dari favorit';
+
+  @override
+  String get manageBorrowing => 'Approval Peminjaman';
+
+  @override
+  String get manageBooks => 'Manajemen Buku';
 }
